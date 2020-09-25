@@ -16,4 +16,5 @@ class PanelUsersController extends Controller
 
         return view('layouts.panel.page.users.add');
     }
+
 }

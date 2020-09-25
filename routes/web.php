@@ -2,8 +2,8 @@
 
 use App\Http\Controllers\PanelDashboardController;
 use App\Http\Controllers\PanelUsersController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Laravel\Fortify\Fortify;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,6 +20,12 @@ use Laravel\Fortify\Fortify;
 Route::group(['middleware' => 'auth'], function() {  
     // panel
     Route::prefix('v1/panel/')->group(function() {
+
+        // profile
+        Route::get('/profile/', [ProfileController::class, 'index'])->name('profile.index');
+        Route::post('/profile/', [ProfileController::class, 'addProfile'])->name('profile.addprofile');
+        Route::put('/profile/update/account', [ProfileController::class, 'updateProfileName'])->name('profile.updateprofile.account');
+        Route::put('/profile/update/information', [ProfileController::class, 'updateProfile'])->name('profile.updateprofile.information');
 
         // Dashboard
         Route::prefix('dashboard/')->group(function() {

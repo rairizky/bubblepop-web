@@ -8,3 +8,5 @@
 <!-- notice -->
 
 <!-- content -->
+
+@endsection

@@ -22,6 +22,9 @@
                     </div><!-- Side Header Toggle & Search End -->
 
                     <!-- Header Notifications Area Start -->
+                    @php
+                        $profile = \App\Models\User::find(auth()->user()->id)->profile;
+                    @endphp
                     <div class="col-auto">
 
                         <ul class="header-notification-area">
@@ -30,21 +33,24 @@
                             <li class="adomx-dropdown col-auto">
                                 <a class="toggle" href="#">
                                     <span class="user">
-                                <span class="avatar">
-                                    <img src="#" alt="">
-                                    <span class="status"></span>
+                                        <span class="avatar">
+                                        @if ($profile != null)
+                                            <img src="{{ asset('uploads/profile/'.$profile->image) }}" class="" alt="">
+                                        @endif
+                                        <span class="status"></span>
+                                    </span>
                                 </a>
 
                                 <!-- Dropdown -->
                                 <div class="adomx-dropdown-menu dropdown-menu-user">
                                     <div class="head">
-                                        <h5 class="name">BUBBLE POP</h5>
-                                        <a class="mail" href="#">mail@bubblepop.my.id</a>
+                                        <h5 class="name">{{ Auth::user()->name }}</h5>
+                                        <a class="mail" href="#">{{ Auth::user()->email }}</a>
                                     </div>
                                     <div class="body">
                                         <ul>
                                             <li>
-                                                <a href="#">
+                                                <a href="{{ route('profile.index') }}">
                                                     <i class="zmdi zmdi-account"></i>Profile
                                                 </a>
                                             </li>
