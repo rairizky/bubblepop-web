@@ -38,7 +38,7 @@
     <!--Author Top End-->
 </div>
 
-<div class="row mt-4">
+<div class="row mbn-50 mt-4">
     <div class="col-xlg-12 col-lg-12 col-12 mb-30">
         <div class="box">
             <div class="box-head">
@@ -75,7 +75,7 @@
 
 @if ($profile == null)
 
-<div class="alert alert-danger" role="alert">
+<div class="alert alert-danger" style="margin-top: 36px;" role="alert">
     Add <strong>Profile Information</strong> first!
 </div>
 
@@ -123,8 +123,8 @@
     </div>
 </div>
 @else
-<div class="row mbn-50">
-    <div class="col-xlg-12 col-lg-12 col-12 mb-30">
+<div class="row mbn-50 mt-4">
+    <div class="col-xlg-12 col-lg-12 col-12 mb-30 mt-4">
         <div class="box">
             <div class="box-head">
                 <h3 class="title">Profile Information</h3>
@@ -169,4 +169,69 @@
 </div>
 @endif
 
+<div class="row mt-4">
+    <div class="col-xlg-12 col-lg-12 col-12 mb-30 mt-4">
+        <div class="box">
+            <div class="box-head">
+                <h3 class="title">Change Password</h3>
+            </div>
+            <div class="box-body">
+                <div class="form">
+                    <form action="{{ route('profile.changepassword') }}" method="POST">
+                        @csrf
+                        <div class="row row-10 mbn-20">
+                            <div class="col-sm-12 col-12 mb-20">
+                                <label>Current Password</label>
+                                @if ($errors->has('current_password'))
+                                    <small class="text-danger"> *{{ $errors->first('current_password') }}</small>
+                                @endif
+                                <input type="password" name="current_password" class="form-control" placeholder="Current password">
+                            </div>
+                            <div class="col-sm-12 col-12 mb-20">
+                                <label>New Password</label>
+                                @if ($errors->has('new_password'))
+                                    <small class="text-danger"> *{{ $errors->first('new_password') }}</small>
+                                @endif
+                                <input type="password" name="new_password" class="form-control" placeholder="New password">
+                            </div>
+                            <div class="col-sm-12 col-12 mb-20">
+                                <label>New Confirm Password</label>
+                                @if ($errors->has('new_confirm_password'))
+                                    <small class="text-danger"> *{{ $errors->first('new_confirm_password') }}</small>
+                                @endif
+                                <input type="password" name="new_confirm_password" class="form-control" placeholder="New confirm password">
+                            </div>
+                            <div class="col-sm-12 col-12 mb-20 d-flex justify-content-end">
+                                <a style="color: white;" class="btn btn-primary" data-toggle="modal" data-target="#modalConfirm">Change Password</a>
+                            </div>
+                        </div>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        After you confirm change password, you will redirect to form login and confirm your changed password.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button class="btn btn-primary">Confirm Change Password</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end modal -->
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
 @endsection

@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('/profile/', [ProfileController::class, 'addProfile'])->name('profile.addprofile');
         Route::put('/profile/update/account', [ProfileController::class, 'updateProfileName'])->name('profile.updateprofile.account');
         Route::put('/profile/update/information', [ProfileController::class, 'updateProfile'])->name('profile.updateprofile.information');
+        Route::post('/profile/change-password', [ProfileController::class, 'changePassword'])->name('profile.changepassword');
 
         // Dashboard
         Route::prefix('dashboard/')->group(function() {
