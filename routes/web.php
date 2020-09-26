@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\PanelDashboardController;
+use App\Http\Controllers\PanelProductController;
 use App\Http\Controllers\PanelUsersController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,8 @@ Route::group(['middleware' => 'auth'], function() {
             Route::prefix('users/')->group(function() {
                 Route::get('', [PanelUsersController::class, 'index'])->name('panel.users.index');
                 Route::get('add', [PanelUsersController::class, 'add'])->name('panel.users.add');
+                Route::post('add', [PanelUsersController::class, 'storeUsers'])->name('panel.users.storeusers');
+                Route::delete('{id}/delete', [PanelUsersController::class, 'deleteUsers'])->name('panel.users.delete');
             });
         });
 
@@ -46,7 +49,8 @@ Route::group(['middleware' => 'auth'], function() {
         Route::group(['middleware' => 'can:isAdmin'], function() {
             // Product
             Route::prefix('product/')->group(function() {
-                // 
+                Route::get('', [PanelProductController::class, 'index'])->name('panel.product.index');
+                Route::get('/add', [PanelProductController::class, 'add'])->name('panel.product.add');
             });
         });
 

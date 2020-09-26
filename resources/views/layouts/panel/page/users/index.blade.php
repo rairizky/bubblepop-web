@@ -53,7 +53,32 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                                        <a data-toggle="modal" style="color: white;" data-target="#modalConfirm" class="btn btn-danger btn-sm">Delete</a>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">Confirm Delete</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure want delete this users?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <a style="color: white;" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
+                                                        <form action="{{ route('panel.users.delete', $data->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger">Delete users</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- end modal -->
                                     </td>
                                 </tr>
                             @endforeach

@@ -32,18 +32,18 @@
                 @endcan
 
                 @can('isAdmin')
-                <li class="has-sub-menu">
+                <li class="has-sub-menu {{ request()->is('v1/panel/product*')? 'active' : '' }}">
                     <a href="#">
                         <i class="ti-heart"></i> <span>Product</span>
                     </a>
                     <ul class="side-header-sub-menu">
-                        <li>
-                            <a href="#">
+                        <li class="{{ Route::is('panel.product.index')? 'active' : '' }}">
+                            <a href="{{ route('panel.product.index') }}">
                                 <span>Manage Product</span>
                             </a>
                         </li>
-                        <li>
-                            <a href="#">
+                        <li class="{{ Route::is('panel.product.add')? 'active' : '' }}">
+                            <a href="{{ route('panel.product.add') }}">
                                 <span>Add Product</span>
                             </a>
                         </li>
