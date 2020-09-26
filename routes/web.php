@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PanelCategoryController;
 use App\Http\Controllers\PanelDashboardController;
 use App\Http\Controllers\PanelProductController;
 use App\Http\Controllers\PanelUsersController;
@@ -51,6 +52,17 @@ Route::group(['middleware' => 'auth'], function() {
             Route::prefix('product/')->group(function() {
                 Route::get('', [PanelProductController::class, 'index'])->name('panel.product.index');
                 Route::get('/add', [PanelProductController::class, 'add'])->name('panel.product.add');
+                Route::post('/add', [PanelProductController::class, 'storeProduct'])->name('panel.product.storeproduct');
+            });
+
+            // Category
+            Route::prefix('category/')->group(function() {
+                Route::get('', [PanelCategoryController::class, 'index'])->name('panel.category.index');
+                Route::get('/add', [PanelCategoryController::class, 'add'])->name('panel.category.add');
+                Route::post('/add', [PanelCategoryController::class, 'storeCategory'])->name('panel.category.storecategory');
+                Route::get('/{id}/edit', [PanelCategoryController::class, 'editCategory'])->name('panel.category.edit');
+                Route::put('/{id}/edit/update', [PanelCategoryController::class, 'updateCategory'])->name('panel.category.updatecategory');
+                Route::delete('{id}/delete', [PanelCategoryController::class, 'deleteCategory'])->name('panel.category.delete');
             });
         });
 

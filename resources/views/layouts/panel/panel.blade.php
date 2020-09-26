@@ -53,8 +53,10 @@
                     <!-- Page Heading Start -->
                     <div class="col-12 col-lg-auto mb-20">
                         <div class="page-heading">
-                            @if (View::hasSection('subtitle'))
-                                <h3>@yield('title')<span> / @yield('subtitle')</span></h3>
+                            @if (View::hasSection('subtitle') && View::hasSection ('subtitle2'))
+                                <h3>@yield('title')<span> / @yield('subtitle') / @yield('subtitle2')</span></h3>
+                            @elseif (View::hasSection('subtitle'))
+                            <h3>@yield('title')<span> / @yield('subtitle')</span></h3>
                             @else
                                 <h3>@yield('title')</h3>
                             @endif

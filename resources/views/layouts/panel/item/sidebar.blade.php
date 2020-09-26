@@ -34,7 +34,7 @@
                 @can('isAdmin')
                 <li class="has-sub-menu {{ request()->is('v1/panel/product*')? 'active' : '' }}">
                     <a href="#">
-                        <i class="ti-heart"></i> <span>Product</span>
+                        <i class="fa fa-glass"></i> <span>Product</span>
                     </a>
                     <ul class="side-header-sub-menu">
                         <li class="{{ Route::is('panel.product.index')? 'active' : '' }}">
@@ -45,6 +45,23 @@
                         <li class="{{ Route::is('panel.product.add')? 'active' : '' }}">
                             <a href="{{ route('panel.product.add') }}">
                                 <span>Add Product</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="has-sub-menu {{ request()->is('v1/panel/category*')? 'active' : '' }}">
+                    <a href="#">
+                        <i class="fa fa-th-large"></i> <span>Category</span>
+                    </a>
+                    <ul class="side-header-sub-menu">
+                        <li class="{{ Route::is('panel.category.index')? 'active' : '' }}">
+                            <a href="{{ route('panel.category.index') }}">
+                                <span>Manage Category</span>
+                            </a>
+                        </li>
+                        <li class="{{ Route::is('panel.category.add')? 'active' : '' }}">
+                            <a href="{{ route('panel.category.add') }}">
+                                <span>Add Category</span>
                             </a>
                         </li>
                     </ul>

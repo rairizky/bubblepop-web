@@ -32,7 +32,6 @@
                             <tr>
                                 <th>No</th>
                                 <th>Name</th>
-                                <th>Thumb</th>
                                 <th>Price</th>
                                 <th>Type</th>
                                 <th>#</th>
