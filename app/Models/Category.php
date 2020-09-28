@@ -12,4 +12,8 @@ class Category extends Model
     protected $table = "categories";
     protected $fillable = ['name'];
     protected $guard = [] ;
+
+    public function menu() {
+        return $this->hasMany('App\Models\Menu');
+    }
 }

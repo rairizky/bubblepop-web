@@ -55,6 +55,9 @@ Route::group(['middleware' => 'auth'], function() {
                     Route::get('', [PanelProductController::class, 'indexMenu'])->name('panel.product.index.menu');
                     Route::get('/add', [PanelProductController::class, 'addMenu'])->name('panel.product.add.menu');
                     Route::post('/add', [PanelProductController::class, 'storeMenu'])->name('panel.product.store.menu');
+                    Route::get('/{id}/edit', [PanelProductController::class, 'editMenu'])->name('panel.product.edit.menu');
+                    Route::put('/{id}/edit/update', [PanelProductController::class, 'updateMenu'])->name('panel.product.update.menu');
+                    Route::delete('{id}/delete', [PanelProductController::class, 'deleteMenu'])->name('panel.product.delete.menu');
                 });
 
             });

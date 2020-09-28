@@ -17,7 +17,8 @@ class CreateMenusTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('image');
-            $table->integer('price');
+            $table->integer('price_m');
+            $table->integer('price_l');
             $table->integer('category_id');
             $table->text('description');
             $table->enum('status', ['available', 'notavailable']);

@@ -25,7 +25,7 @@
             </div>
             <div class="box-body">
                 <div class="table-responsive">
-                    <table class="table data-table data-table-default">
+                    <table class="table table-bordered table-hover data-table data-table-default">
 
                         <!-- Table Head Start -->
                         <thead>
@@ -41,7 +41,55 @@
 
                         <!-- Table Body Start -->
                         <tbody>
-                            
+                            @foreach ($menus as $data)
+                                <tr>
+                                    <td class="align-middle"></td>
+                                    <td class="align-middle">
+                                        {{ $data->name }}
+                                    </td>
+                                    <td>
+                                        <p>Rp. {{ number_format($data->price_m) }} (<span class="text-primary">M</span>)</p>
+                                        <p>Rp. {{ number_format($data->price_l) }} (<span class="text-primary">L</span>)</p>
+                                    </td>
+                                    <td class="align-middle">
+                                        {{ $data->category->name }}
+                                    </td>
+                                    <td class="align-middle">
+                                        @if ($data->status == "available")
+                                        <span class="badge badge-pill badge-primary">{{ $data->status }}</span>
+                                        @else
+                                        <span class="badge badge-pill badge-danger">{{ $data->status }}</span>
+                                        @endif
+                                    </td>
+                                    <td class="align-middle">
+                                        <a href="{{ route('panel.product.edit.menu', $data->id) }}" class="btn btn-info btn-sm">Edit</a>
+                                        <a data-toggle="modal"  class="btn btn-danger btn-sm" data-target="#modalConfirm" style="color: white;">Delete</a>
+                                        <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">Confirm Delete</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        Are you sure want delete this menu?
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <a style="color: white;" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
+                                                        <form action="{{ route('panel.product.delete.menu', $data->id) }}" method="POST">
+                                                            @csrf
+                                                            @method('DELETE')
+                                                            <button type="submit" class="btn btn-danger">Delete menu</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody><!-- Table Body End -->
 
                     </table>

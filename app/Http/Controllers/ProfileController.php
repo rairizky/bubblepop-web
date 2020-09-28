@@ -33,6 +33,8 @@ class ProfileController extends Controller
 
         // return dd(Auth::user()->id, $fileName, $request->get('phone'), $request->get('address'));
 
+        $user_id = Auth::user()->id;
+
         $post = Profile::create([
             'user_id' => Auth::user()->id,
             'image' => $fileName,
@@ -41,7 +43,7 @@ class ProfileController extends Controller
         ]);
 
         if ($post) {
-            $file->move(public_path('uploads/profile/'), $fileName);
+            $file->move(public_path("uploads/profile/{$user_id}/"), $fileName);
             return redirect()->route('profile.index')->with('success', 'Success add profile');
         } else {
             return back();
@@ -72,12 +74,12 @@ class ProfileController extends Controller
             ]);
 
             if ($up) {
-                if (file_exists(public_path("uploads/profile/{$profile->image}"))) {
+                if (file_exists(public_path("uploads/profile/{$profile->user_id}/{$profile->image}"))) {
                     // remove old img
-                    unlink(public_path("uploads/profile/{$profile->image}"));
+                    unlink(public_path("uploads/profile/{$profile->user_id}/{$profile->image}"));
                 }
                 
-                $file->move(public_path('uploads/profile/'), $fileName);
+                $file->move(public_path("uploads/profile/{$profile->user_id}/"), $fileName);
                 return redirect()->route('profile.index')->with('success', 'Success update profile');
             } else {
                 return back();

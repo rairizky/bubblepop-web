@@ -24,7 +24,7 @@
                 <div class="author-profile">
                     <div class="image">
                         @if ($profile != null)
-                        <img src="{{ asset('uploads/profile/'.$profile->image) }}" class="" alt="">
+                        <img src="{{ asset("uploads/profile/{$profile->user_id}/".$profile->image) }}" class="" alt="">
                         @endif
                     </div>
                     <div class="info">

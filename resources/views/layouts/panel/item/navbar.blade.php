@@ -35,7 +35,7 @@
                                     <span class="user">
                                         <span class="avatar">
                                         @if ($profile != null)
-                                            <img src="{{ asset('uploads/profile/'.$profile->image) }}" class="" alt="">
+                                            <img src="{{ asset("uploads/profile/{$profile->user_id}/".$profile->image) }}" class="" alt="">
                                         @endif
                                         <span class="status"></span>
                                     </span>

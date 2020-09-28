@@ -49,9 +49,9 @@ class PanelUsersController extends Controller
         $profile = $user->profile();
         $profileItem = $user->profile;
 
-        if (file_exists(public_path("uploads/profile/{$profileItem->image}"))) {
+        if (file_exists(public_path("uploads/profile/{$profileItem->user_id}/{$profileItem->image}"))) {
             // remove old img
-            unlink(public_path("uploads/profile/{$profileItem->image}"));
+            unlink(public_path("uploads/profile/{$profileItem->user_id}/{$profileItem->image}"));
         }
         $profile->delete();
         $user->delete();
