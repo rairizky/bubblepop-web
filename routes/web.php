@@ -50,9 +50,13 @@ Route::group(['middleware' => 'auth'], function() {
         Route::group(['middleware' => 'can:isAdmin'], function() {
             // Product
             Route::prefix('product/')->group(function() {
-                Route::get('', [PanelProductController::class, 'index'])->name('panel.product.index');
-                Route::get('/add', [PanelProductController::class, 'add'])->name('panel.product.add');
-                Route::post('/add', [PanelProductController::class, 'storeProduct'])->name('panel.product.storeproduct');
+                // Menu
+                Route::prefix('menu/')->group(function() {
+                    Route::get('', [PanelProductController::class, 'indexMenu'])->name('panel.product.index.menu');
+                    Route::get('/add', [PanelProductController::class, 'addMenu'])->name('panel.product.add.menu');
+                    Route::post('/add', [PanelProductController::class, 'storeMenu'])->name('panel.product.store.menu');
+                });
+
             });
 
             // Category

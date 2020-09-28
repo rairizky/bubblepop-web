@@ -2,23 +2,35 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class PanelProductController extends Controller
 {
     
-    public function index() {
+    public function indexMenu() {
 
-        return view('layouts.panel.page.product.index');
+        return view('layouts.panel.page.product.menu.index');
     }
 
-    public function add() {
+    public function addMenu() {
 
-        return view('layouts.panel.page.product.add');
+        $categories = Category::all()->where('name', '!=' , 'topping');
+
+        return view('layouts.panel.page.product.menu.add', compact('categories'));
     }
 
-    public function storeProduct(Request $request) {
+    public function storeMenu(Request $request) {
 
+        $request->validate([
+            'name' => 'required|',
+            'image' => 'required|mimes:jpg,png,jpeg',
+            'price' => 'required|numeric',
+            'category' => 'required',
+            'description' => 'required',
+            'status' => 'required|in:available,notavailable',
+        ]);
         
+        return back();
     }
 }

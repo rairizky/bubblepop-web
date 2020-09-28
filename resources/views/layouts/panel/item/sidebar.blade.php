@@ -34,18 +34,42 @@
                 @can('isAdmin')
                 <li class="has-sub-menu {{ request()->is('v1/panel/product*')? 'active' : '' }}">
                     <a href="#">
-                        <i class="fa fa-glass"></i> <span>Product</span>
+                        <i class="fa fa-cutlery"></i> <span>Product</span>
                     </a>
                     <ul class="side-header-sub-menu">
-                        <li class="{{ Route::is('panel.product.index')? 'active' : '' }}">
-                            <a href="{{ route('panel.product.index') }}">
-                                <span>Manage Product</span>
+                        <li class="has-sub-menu {{ request()->is('v1/panel/product/menu*')? 'active' : '' }}">
+                            <a href="#">
+                                <i class="fa fa-beer"></i> <span>Menu</span>
                             </a>
+                            <ul class="side-header-sub-menu">
+                                <li class="{{ Route::is('panel.product.index.menu')? 'active' : '' }}">
+                                    <a href="{{ route('panel.product.index.menu') }}">
+                                        <span>Manage Menu</span>
+                                    </a>
+                                </li>
+                                <li class="{{ Route::is('panel.product.add.menu')? 'active' : '' }}">
+                                    <a href="{{ route('panel.product.add.menu') }}">
+                                        <span>Add Menu</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
-                        <li class="{{ Route::is('panel.product.add')? 'active' : '' }}">
-                            <a href="{{ route('panel.product.add') }}">
-                                <span>Add Product</span>
+                        <li class="has-sub-menu {{ request()->is('v1/panel/product/topping*')? 'active' : '' }}">
+                            <a href="#">
+                                <i class="fa fa-cubes"></i> <span>Topping</span>
                             </a>
+                            <ul class="side-header-sub-menu">
+                                <li class="">
+                                    <a href="#">
+                                        <span>Manage Topping</span>
+                                    </a>
+                                </li>
+                                <li class="">
+                                    <a href="#">
+                                        <span>Add Topping</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
                     </ul>
                 </li>

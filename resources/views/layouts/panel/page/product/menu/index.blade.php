@@ -1,7 +1,7 @@
 @extends('layouts.panel.panel')
 
 @section('title', 'Product')
-@section('subtitle', 'Manage Product')
+@section('subtitle', 'Manage Menu')
 
 @section('content')
 
@@ -21,7 +21,7 @@
     <div class="col-xlg-4 col-lg-12 col-12 mb-30">
         <div class="box">
             <div class="box-head">
-                <h4 class="title">List All Product</h4>
+                <h4 class="title">List All Menu</h4>
             </div>
             <div class="box-body">
                 <div class="table-responsive">
@@ -33,7 +33,8 @@
                                 <th>No</th>
                                 <th>Name</th>
                                 <th>Price</th>
-                                <th>Type</th>
+                                <th>Category</th>
+                                <th>Status</th>
                                 <th>#</th>
                             </tr>
                         </thead><!-- Table Head End -->
