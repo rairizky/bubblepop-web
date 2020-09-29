@@ -49,11 +49,13 @@ class PanelUsersController extends Controller
         $profile = $user->profile();
         $profileItem = $user->profile;
 
-        if (file_exists(public_path("uploads/profile/{$profileItem->user_id}/{$profileItem->image}"))) {
-            // remove old img
-            unlink(public_path("uploads/profile/{$profileItem->user_id}/{$profileItem->image}"));
+        if ($profileItem != "") {
+            if (file_exists(public_path("uploads/profile/{$profileItem->user_id}/{$profileItem->image}"))) {
+                // remove old img
+                unlink(public_path("uploads/profile/{$profileItem->user_id}/{$profileItem->image}"));
+            }
+            $profile->delete();
         }
-        $profile->delete();
         $user->delete();
 
         return redirect()->route('panel.users.index')->with('success', 'Success deleted users!');

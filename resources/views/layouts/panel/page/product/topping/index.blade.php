@@ -1,7 +1,7 @@
 @extends('layouts.panel.panel')
 
 @section('title', 'Product')
-@section('subtitle', 'Manage Menu')
+@section('subtitle', 'Manage Topping')
 
 @section('content')
 
@@ -21,7 +21,7 @@
     <div class="col-xlg-4 col-lg-12 col-12 mb-30">
         <div class="box">
             <div class="box-head">
-                <h4 class="title">List All Menu</h4>
+                <h4 class="title">List All Topping</h4>
             </div>
             <div class="box-body">
                 <div class="table-responsive">
@@ -33,7 +33,6 @@
                                 <th>No</th>
                                 <th>Name</th>
                                 <th>Price</th>
-                                <th>Category</th>
                                 <th>Status</th>
                                 <th>#</th>
                             </tr>
@@ -41,18 +40,14 @@
 
                         <!-- Table Body Start -->
                         <tbody>
-                            @foreach ($menus as $data)
+                            @foreach ($toppings as $data)
                                 <tr>
                                     <td class="align-middle"></td>
                                     <td class="align-middle">
                                         {{ $data->name }}
                                     </td>
-                                    <td>
-                                        <p>Rp. {{ number_format($data->price_m) }} (<span class="text-primary">M</span>)</p>
-                                        <p>Rp. {{ number_format($data->price_l) }} (<span class="text-primary">L</span>)</p>
-                                    </td>
                                     <td class="align-middle">
-                                        {{ $data->category->name }}
+                                        Rp. {{ number_format($data->price) }}
                                     </td>
                                     <td class="align-middle">
                                         @if ($data->status == "available")
@@ -63,10 +58,10 @@
                                     </td>
                                     <td class="align-middle">
                                         <p>
-                                            <a href="{{ route('panel.product.edit.menu', $data->id) }}" class="btn btn-info btn-sm">Edit</a>
+                                            <a href="{{ route('panel.product.edit.topping', $data->id) }}" class="btn btn-info btn-sm">Edit</a>
                                         </p>
                                         <p>
-                                            <form action="{{ route('panel.product.delete.menu', $data->id) }}" method="POST">
+                                            <form action="{{ route('panel.product.delete.topping', $data->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>

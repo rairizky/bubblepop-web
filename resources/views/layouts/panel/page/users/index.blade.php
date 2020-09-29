@@ -42,43 +42,22 @@
                         <tbody>
                             @foreach ($users as $data)
                                 <tr>
-                                    <td class="fw-600"></td>
-                                    <td>{{ $data->name }}</td>
-                                    <td>{{ $data->email }}</td>
-                                    <td>
+                                    <td class="fw-600 align-middle"></td>
+                                    <td class="align-middle">{{ $data->name }}</td>
+                                    <td class="align-middle">{{ $data->email }}</td>
+                                    <td class="align-middle">
                                         @if ($data->role == 'admin')    
                                             <span class="badge badge-pill badge-primary">{{ $data->role }}</span>
                                         @elseif($data->role == 'cashier')
                                             <span class="badge badge-pill badge-success">{{ $data->role }}</span>
                                         @endif
                                     </td>
-                                    <td>
-                                        <a data-toggle="modal" style="color: white;" data-target="#modalConfirm" class="btn btn-danger btn-sm">Delete</a>
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                                            <div class="modal-dialog modal-dialog-centered" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLongTitle">Confirm Delete</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        Are you sure want delete this users?
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <a style="color: white;" class="btn btn-secondary" data-dismiss="modal">Cancel</a>
-                                                        <form action="{{ route('panel.users.delete', $data->id) }}" method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button type="submit" class="btn btn-danger">Delete users</button>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <!-- end modal -->
+                                    <td class="align-middle">
+                                        <form action="{{ route('panel.users.delete', $data->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach

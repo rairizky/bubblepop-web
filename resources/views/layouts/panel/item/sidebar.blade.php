@@ -59,13 +59,13 @@
                                 <i class="fa fa-cubes"></i> <span>Topping</span>
                             </a>
                             <ul class="side-header-sub-menu">
-                                <li class="">
-                                    <a href="#">
+                                <li class="{{ Route::is('panel.product.index.topping')? 'active' : '' }}">
+                                    <a href="{{ route('panel.product.index.topping') }}">
                                         <span>Manage Topping</span>
                                     </a>
                                 </li>
-                                <li class="">
-                                    <a href="#">
+                                <li class="{{ Route::is('panel.product.add.topping')? 'active' : '' }}">
+                                    <a href="{{ route('panel.product.add.topping') }}">
                                         <span>Add Topping</span>
                                     </a>
                                 </li>

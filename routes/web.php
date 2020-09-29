@@ -59,7 +59,15 @@ Route::group(['middleware' => 'auth'], function() {
                     Route::put('/{id}/edit/update', [PanelProductController::class, 'updateMenu'])->name('panel.product.update.menu');
                     Route::delete('{id}/delete', [PanelProductController::class, 'deleteMenu'])->name('panel.product.delete.menu');
                 });
-
+            // Topping
+                Route::prefix('topping/')->group(function() {
+                    Route::get('', [PanelProductController::class, 'indexTopping'])->name('panel.product.index.topping');
+                    Route::get('/add', [PanelProductController::class, 'addTopping'])->name('panel.product.add.topping');
+                    Route::post('/add', [PanelProductController::class, 'storeTopping'])->name('panel.product.store.topping');
+                    Route::get('/{id}/edit', [PanelProductController::class, 'editTopping'])->name('panel.product.edit.topping');
+                    Route::put('/{id}/edit/update', [PanelProductController::class, 'updateTopping'])->name('panel.product.update.topping');
+                    Route::delete('{id}/delete', [PanelProductController::class, 'deleteTopping'])->name('panel.product.delete.topping');
+                });
             });
 
             // Category

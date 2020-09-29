@@ -16,4 +16,8 @@ class Category extends Model
     public function menu() {
         return $this->hasMany('App\Models\Menu');
     }
+
+    public function topping() {
+        return $this->hasMany('App\Models\Topping');
+    }
 }

@@ -10,7 +10,7 @@ class PanelCategoryController extends Controller
     
     public function index() {
 
-        $categories = Category::all();
+        $categories = Category::all()->where('name', '!=', 'topping');
 
         return view('layouts.panel.page.category.index', compact('categories'));
     }
