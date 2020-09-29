@@ -93,13 +93,13 @@
                 @endcan
 
                 @can('isCashier')
-                <li class="has-sub-menu">
+                <li class="has-sub-menu {{ request()->is('v1/panel/transaction*')? 'active' : '' }}">
                     <a href="#">
                         <i class="ti-shopping-cart"></i> <span>Transaction</span>
                     </a>
                     <ul class="side-header-sub-menu">
-                        <li>
-                            <a href="#">
+                        <li class="{{ Route::is('panel.transaction.index.onsite')? 'active' : '' }}">
+                            <a href="{{ route('panel.transaction.index.onsite') }}">
                                 <i class="ti-shopping-cart"></i> <span>Create Transaction</span>
                             </a>
                         </li>

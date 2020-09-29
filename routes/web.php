@@ -3,6 +3,7 @@
 use App\Http\Controllers\PanelCategoryController;
 use App\Http\Controllers\PanelDashboardController;
 use App\Http\Controllers\PanelProductController;
+use App\Http\Controllers\PanelTransactionOnsite;
 use App\Http\Controllers\PanelUsersController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -85,7 +86,16 @@ Route::group(['middleware' => 'auth'], function() {
         Route::group(['middleware' => 'can:isCashier'], function() {
             // Transaction
             Route::prefix('transaction/')->group(function() {
-                // 
+                // Onsite
+                Route::prefix('onsite/')->group(function() {
+                    Route::get('', [PanelTransactionOnsite::class, 'addInvoice'])->name('panel.transaction.index.onsite');
+                    Route::get('/cart', [PanelTransactionOnsite::class, 'cartMenu'])->name('panel.transaction.cartMenu.onsite');
+                });
+
+                // Scan
+                Route::prefix('scan/')->group(function() {
+                    // 
+                });
             });
         });
     

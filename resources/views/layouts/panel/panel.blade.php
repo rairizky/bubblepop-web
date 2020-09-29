@@ -15,6 +15,8 @@
         <!-- DataTables -->
         <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
 
+        <!-- stepper -->
+
         <!-- Icon Font CSS -->
         <link rel="stylesheet" href="{{ asset('/panel/assets/css/vendor/material-design-iconic-font.min.css') }}">
         <link rel="stylesheet" href="{{ asset('/panel/assets/css/vendor/font-awesome.min.css') }}">
@@ -99,6 +101,8 @@
 
         <!-- DataTables -->
         <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
+        <!-- stepper -->
 
         <!--Moment-->
         <script src="{{ asset('/panel/assets/js/plugins/moment/moment.min.js') }}"></script>
