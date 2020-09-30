@@ -100,7 +100,7 @@
                     <ul class="side-header-sub-menu">
                         <li class="{{ Route::is('panel.transaction.addinvoice.onsite')? 'active' : '' }}">
                             <a href="{{ route('panel.transaction.addinvoice.onsite') }}">
-                                <i class="ti-shopping-cart"></i> <span>Create Transaction</span>
+                                <i class="fa fa-plus-square-o"></i> <span>Create Transaction</span>
                             </a>
                         </li>
                         <li>

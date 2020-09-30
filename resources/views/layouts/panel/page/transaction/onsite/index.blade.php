@@ -50,49 +50,6 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-sm-5">
-                <div class="box">
-                    <div class="box-head">
-                        <h4 class="title">List Order</h4>
-                    </div>
-                    <div class="box-body">
-                        
-                    </div>
-                </div>
-                <div class="mt-4 box">
-                    <div class="box-head">
-                        <h4 class="title">Payment</h4>
-                    </div>
-                    <div class="box-body">
-                        <div class="form">
-                            <form action="#" method="POST">
-                                @csrf
-                                <div class="row row-10 mbn-20">
-                                    <div class="col-12 mb-20">
-                                        <label>Total</label>
-                                        @if ($errors->has('total'))
-                                            <small class="text-danger"> *{{ $errors->first('total') }}</small>
-                                        @endif
-                                        <input type="text" name="total" class="form-control" placeholder="Total" autocomplete="off" value="0" readonly>               
-                                    </div>
-                                    <div class="col-12 mb-20">
-                                        <label>Paid</label>
-                                        @if ($errors->has('paid'))
-                                            <small class="text-danger"> *{{ $errors->first('paid') }}</small>
-                                        @endif
-                                        <input type="text" name="paid" class="form-control" placeholder="Paid" autocomplete="off" value="0">               
-                                    </div>
-                                    <div class="col-12 mb-20 d-flex justify-content-end">
-                                        <a href="#" class="btn btn-outline-danger mr-2">Cancel Order</a>    
-                                        <button type="submit" class="btn btn-primary">End Order</button>              
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div><!-- All product  End -->
 </div>

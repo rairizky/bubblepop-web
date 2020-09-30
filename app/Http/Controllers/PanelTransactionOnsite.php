@@ -7,6 +7,8 @@ use App\Models\Menu;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
+use function PHPUnit\Framework\isEmpty;
+
 class PanelTransactionOnsite extends Controller
 {
 
@@ -49,7 +51,10 @@ class PanelTransactionOnsite extends Controller
         // list order
         $order_detail = Order::find($id)->list_order;
 
-        return view('layouts.panel.page.transaction.onsite.cartmenu', compact('menus', 'current_customer', 'order_detail'));
+        // get total cart item
+        $sum_item = $order_detail->sum('mount');
+
+        return view('layouts.panel.page.transaction.onsite.cartmenu', compact('menus', 'current_customer', 'order_detail', 'sum_item'));
     }
 
     public function storeCart(Request $request, $id) {
@@ -84,5 +89,18 @@ class PanelTransactionOnsite extends Controller
         } else {
             return back();
         }
+    }
+
+    public function cancelOrder($id) {
+
+        $get_order = Order::find($id);
+        $get_detail_order = $get_order->list_order();
+
+        if ($get_detail_order->exists()) {
+            $get_detail_order->delete();
+        }
+        $get_order->delete();
+
+        return redirect()->route('panel.transaction.addinvoice.onsite')->with('success', 'cancel order success');
     }
 }
