@@ -26,26 +26,54 @@
                         <h4 class="title">New Transaction</h4>
                     </div>
                     <div class="box-body">
-                        <div class="form">
-                            <form action="{{ route('panel.transaction.storeinvoice.onsite') }}" method="POST">
-                                @csrf
-                                <div class="row row-10 mbn-20">
-                                    <div class="col-12 mb-20">
-                                        <label>Name Customer</label>
-                                        <div class="row mbn-20">
-                                            <div class="col-md-6 mb-20">
-                                                @if ($errors->has('name'))
-                                                    <small class="text-danger"> *{{ $errors->first('name') }}</small>
-                                                @endif
-                                                <input type="text" name="name" class="form-control" placeholder="Name customer" autocomplete="off">
+                        <!-- content -->
+                        <form action="#" method="GET">
+                            <div class="mb-20">
+                                <label>Search</label>
+                                <input type="text" name="search" class="form-control" placeholder="Search menu...">
+                            </div>
+                        </form>
+                        @if ($message = Session::get('error'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ $message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        @endif
+                        <div class="row">
+                            @foreach ($menus as $data)
+                            <div class="col-sm-6 mb-30">
+                                <div class="card">
+                                    <img src="{{ asset("uploads/menu/$data->id/$data->image") }}" class="card-img-top" alt="{{ $data->image }}">
+                                    <div class="card-body">
+                                        <h5 class="card-title">{{ $data->name }}</h5>
+                                        <form action="{{ route('panel.transaction.storecart.onsite', $current_customer->id) }}" method="POST">
+                                            @csrf
+                                            <input type="text" name="menu_id" value="{{ $data->id }}" hidden>
+                                            <div class="mb-20">
+                                                <label>Size</label>
+                                                <div class="adomx-checkbox-radio-group inline">
+                                                    <label class="adomx-radio">
+                                                        <input type="radio" name="size" value="{{ $data->price_m }}"> <i class="icon"></i>Rp. {{ number_format($data->price_m) }} (M)
+                                                    </label>
+                                                    <label class="adomx-radio">
+                                                        <input type="radio" name="size" value="{{ $data->price_l }}"> <i class="icon"></i>Rp. {{ number_format($data->price_l) }} (L)
+                                                    </label>
+                                                </div>
                                             </div>
-                                            <div class="col-md-6 mb-20 d-flex align-items-center">
-                                                <button type="submit" class="btn btn-primary">Create Invoice</button>
+                                            <div class="mb-20">
+                                                <label>Mount</label>
+                                                <input type="text" name="mount" class="form-control" placeholder="2">
                                             </div>
-                                        </div>                
+                                            <div>
+                                                <button type="submit" class="btn btn-primary btn-block">Add to Cart</button>
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

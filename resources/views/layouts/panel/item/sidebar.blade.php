@@ -98,8 +98,8 @@
                         <i class="ti-shopping-cart"></i> <span>Transaction</span>
                     </a>
                     <ul class="side-header-sub-menu">
-                        <li class="{{ Route::is('panel.transaction.index.onsite')? 'active' : '' }}">
-                            <a href="{{ route('panel.transaction.index.onsite') }}">
+                        <li class="{{ Route::is('panel.transaction.addinvoice.onsite')? 'active' : '' }}">
+                            <a href="{{ route('panel.transaction.addinvoice.onsite') }}">
                                 <i class="ti-shopping-cart"></i> <span>Create Transaction</span>
                             </a>
                         </li>

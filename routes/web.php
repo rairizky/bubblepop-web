@@ -88,8 +88,10 @@ Route::group(['middleware' => 'auth'], function() {
             Route::prefix('transaction/')->group(function() {
                 // Onsite
                 Route::prefix('onsite/')->group(function() {
-                    Route::get('', [PanelTransactionOnsite::class, 'addInvoice'])->name('panel.transaction.index.onsite');
-                    Route::get('/cart', [PanelTransactionOnsite::class, 'cartMenu'])->name('panel.transaction.cartMenu.onsite');
+                    Route::get('', [PanelTransactionOnsite::class, 'addInvoice'])->name('panel.transaction.addinvoice.onsite');
+                    Route::post('', [PanelTransactionOnsite::class, 'storeInvoice'])->name('panel.transaction.storeinvoice.onsite');
+                    Route::get('/{id}', [PanelTransactionOnsite::class, 'cartMenu'])->name('panel.transaction.cartmenu.onsite');
+                    Route::post('/{id}/addmenu', [PanelTransactionOnsite::class, 'storeCart'])->name('panel.transaction.storecart.onsite');
                 });
 
                 // Scan
