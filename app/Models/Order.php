@@ -12,4 +12,9 @@ class Order extends Model
     protected $table = "orders";
     protected $fillable = ['name', 'user_id', 'cashier', 'total', 'paid', 'status'];
     protected $guard = [];
+
+    public function list_order() {
+
+        return $this->hasMany('App\Models\Detail');
+    }
 }

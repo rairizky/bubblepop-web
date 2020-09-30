@@ -5,16 +5,6 @@
 
 @section('content')
 
-<!-- notice -->
-@if ($message = Session::get('success'))
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    {{ $message }}
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true"></span>
-    </button>
-</div>
-@endif
-
 <!-- content -->
 <div class="row mbn-30">
     <!-- All Product Start -->
@@ -33,6 +23,14 @@
                                 <input type="text" name="search" class="form-control" placeholder="Search menu...">
                             </div>
                         </form>
+                        @if ($message = Session::get('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ $message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        @endif
                         @if ($message = Session::get('error'))
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             {{ $message }}
@@ -55,16 +53,16 @@
                                                 <label>Size</label>
                                                 <div class="adomx-checkbox-radio-group inline">
                                                     <label class="adomx-radio">
-                                                        <input type="radio" name="size" value="{{ $data->price_m }}"> <i class="icon"></i>Rp. {{ number_format($data->price_m) }} (M)
+                                                        <input id="size_m" type="radio" name="size" value="M"> <i class="icon"></i>Rp. {{ number_format($data->price_m) }} (M)
                                                     </label>
                                                     <label class="adomx-radio">
-                                                        <input type="radio" name="size" value="{{ $data->price_l }}"> <i class="icon"></i>Rp. {{ number_format($data->price_l) }} (L)
+                                                        <input id="size_l" type="radio" name="size" value="L"> <i class="icon"></i>Rp. {{ number_format($data->price_l) }} (L)
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="mb-20">
                                                 <label>Mount</label>
-                                                <input type="text" name="mount" class="form-control" placeholder="2">
+                                                <input type="number" name="mount" class="form-control" placeholder="eg: 3" autocomplete="off">
                                             </div>
                                             <div>
                                                 <button type="submit" class="btn btn-primary btn-block">Add to Cart</button>
@@ -85,7 +83,9 @@
                         <h4 class="title">List Order</h4>
                     </div>
                     <div class="box-body">
-                        
+                        @foreach ($order_detail as $list)
+                            <p>{{ $list->menu_id }}</p>
+                        @endforeach
                     </div>
                 </div>
                 <div class="mt-4 box">
@@ -127,7 +127,7 @@
 @endsection
 
 @section('script')
-<script>
+<script type="text/javascript">
     var t = $('.data-table-default').DataTable({
         "columnDefs": [ {
             "searchable": false,
@@ -142,5 +142,6 @@
             cell.innerHTML = i+1;
         } );
     } ).draw();
+
 </script>
 @endsection

@@ -13,8 +13,8 @@ class Profile extends Model
     protected $fillable = ['user_id', 'image', 'phone', 'address'];
     protected $guard = [];
 
-    public function user() {
+    public function order_user() {
 
-        return $this->belongsTo('App\Models\User');
+        return $this->belongsTo('App\Models\Order');
     }
 }

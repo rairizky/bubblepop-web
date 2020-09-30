@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Detail;
 use App\Models\Menu;
 use App\Models\Order;
 use Illuminate\Http\Request;
@@ -41,21 +42,47 @@ class PanelTransactionOnsite extends Controller
 
     public function cartMenu($id) {
 
+        // get path and all menu
         $menus = Menu::all();
         $current_customer = Order::where('cashier', auth()->user()->id)->where('status', 'pending')->where('id', $id)->first();
 
-        return view('layouts.panel.page.transaction.onsite.cartmenu', compact('menus', 'current_customer'));
+        // list order
+        $order_detail = Order::find($id)->list_order;
+
+        return view('layouts.panel.page.transaction.onsite.cartmenu', compact('menus', 'current_customer', 'order_detail'));
     }
 
     public function storeCart(Request $request, $id) {
 
         if ($request->get('size') == null && $request->get('mount') == null) {
-            return redirect()->back()->with('error', "size and mount can't blank");
+            return redirect()->back()->with('error', "size and mount can't be blank");
         } elseif ($request->get('size') == null) {
-            return redirect()->back()->with('error', "size can't blank");
+            return redirect()->back()->with('error', "size can't be blank");
         } elseif ($request->get('mount') == null) {
-            return redirect()->back()->with('error', "mount can't blank");
+            return redirect()->back()->with('error', "mount can't be blank");
         }
 
+        $get_price = '';
+        $find_menu = Menu::find($request->get('menu_id'));
+        if ($request->get('size') == "M") {
+            $get_price = $find_menu->price_m;
+        } elseif ($request->get('size') == "L") {
+            $get_price = $find_menu->price_l;
+        }
+
+        // return dd($request->get('menu_id'), $request->get('mount'), $request->get('size'), $get_price);
+        $post = Detail::create([
+            'order_id' => $id,
+            'menu_id' => $request->get('menu_id'),
+            'mount' => $request->get('mount'),
+            'size' => $request->get('size'),
+            'price' => $get_price,
+        ]);
+
+        if ($post) {
+            return redirect()->route('panel.transaction.cartmenu.onsite', $id)->with('success', 'Menu added');
+        } else {
+            return back();
+        }
     }
 }
