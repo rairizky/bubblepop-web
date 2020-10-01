@@ -54,7 +54,18 @@ class PanelTransactionOnsite extends Controller
         // get total cart item
         $sum_item = $order_detail->sum('mount');
 
-        return view('layouts.panel.page.transaction.onsite.cartmenu', compact('menus', 'current_customer', 'order_detail', 'sum_item'));
+        // get total price
+        $get_list = $order_detail;
+        $total = 0;
+        foreach ($get_list as $data) {
+            $mount = $data->mount;
+            $price = $data->price;
+            $count = $mount*$price;
+            $total += $count;
+        }
+        // return dd($total);
+
+        return view('layouts.panel.page.transaction.onsite.cartmenu', compact('menus', 'current_customer', 'order_detail', 'sum_item', 'total'));
     }
 
     public function storeCart(Request $request, $id) {

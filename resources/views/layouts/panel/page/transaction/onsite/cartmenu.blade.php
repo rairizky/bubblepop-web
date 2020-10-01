@@ -143,7 +143,7 @@
                                         @if ($errors->has('total'))
                                             <small class="text-danger"> *{{ $errors->first('total') }}</small>
                                         @endif
-                                        <input type="text" name="total" class="form-control" placeholder="Total" autocomplete="off" value="48000" readonly>               
+                                        <input type="text" name="total" class="form-control" placeholder="Total" autocomplete="off" value="{{ $total }}" readonly>               
                                     </div>
                                     <div class="col-12 mb-20">
                                         <label>Paid</label>
