@@ -107,7 +107,7 @@
                                                 <hr>
                                                 <a class="dropdown-item" href="#">Edit</a>
                                                 <hr>
-                                                <a class="dropdown-item" href="#">Delete</a>
+                                                <a class="dropdown-item" href="{{ route('panel.transaction.deletemenuorder.onsite', [$current_customer->id, $list->id]) }}">Delete</a>
                                             </div>
                                         </div>
                                     </div>
@@ -142,19 +142,19 @@
                                         @if ($errors->has('total'))
                                             <small class="text-danger"> *{{ $errors->first('total') }}</small>
                                         @endif
-                                        <input type="text" name="total" class="form-control" placeholder="Total" autocomplete="off" value="{{ $total }}" readonly>               
+                                        <input id="totalPayment" onkeyup="sum(); type="text" name="total" class="form-control" placeholder="Total" autocomplete="off" value="{{ $total }}" readonly>               
                                     </div>
                                     <div class="col-12 mb-20">
                                         <label>Paid</label>
                                         @if ($errors->has('paid'))
                                             <small class="text-danger"> *{{ $errors->first('paid') }}</small>
                                         @endif
-                                        <input type="text" name="paid" class="form-control" placeholder="Paid" autocomplete="off" value="0">    
-                                        <p class="mt-5 text-danger">Change : 0</p>           
+                                        <input id="paidPayment" onkeyup="sum();" type="number" name="paid" class="form-control" placeholder="Paid" autocomplete="off" value="0">    
+                                        <p id="changeText" class="mt-5 text-danger" onkeyup="sum();">Change : <span id="changePayment">0</span></p>           
                                     </div>
                                     <div class="col-12 mb-20 d-flex justify-content-end">
                                         <a href="#" class="btn btn-outline-danger mr-2" data-toggle="modal" data-target="#modalCancelOrder">Cancel Order</a>    
-                                        <button type="submit" class="btn btn-primary">End Order</button>   
+                                        <button id="btnEndOrder" onkeyup="sum();" type="submit" class="btn btn-primary">End Order</button>   
                                         <!-- Modal -->
                                         <div class="modal fade" id="modalCancelOrder" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -203,6 +203,26 @@
             cell.innerHTML = i+1;
         } );
     } ).draw();
+
+    document.getElementById("btnEndOrder").disabled = true;
+    function sum() {
+        var btnEndOrder = document.getElementById("btnEndOrder");
+        var total = parseInt(document.getElementById("totalPayment").value);
+        var paid = parseInt(document.getElementById("paidPayment").value);
+        var result = paid-total;
+        
+        if (!isNaN(result)) {
+            if (paid >= total) {
+                document.getElementById('changeText').className = "mt-5 text-success"
+                document.getElementById('changePayment').innerHTML = result;
+                btnEndOrder.disabled = false;
+            } else if (paid <= total) {
+                document.getElementById('changeText').className = "mt-5 text-danger"
+                document.getElementById('changePayment').innerHTML = result;
+                btnEndOrder.disabled = true;
+            }
+        }
+    }
 
 </script>
 @endsection

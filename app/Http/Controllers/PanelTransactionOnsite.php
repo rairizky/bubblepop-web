@@ -121,6 +121,13 @@ class PanelTransactionOnsite extends Controller
         }
     }
 
+    public function deleteMenuOrder($id, $idmenu) {
+
+        $find_order_menu = Detail::where('id', $idmenu)->firstOrFail();
+        $find_order_menu->delete();
+        return redirect()->route('panel.transaction.cartmenu.onsite', $id)->with('success', 'Menu deleted');
+    }
+
     public function cancelOrder($id) {
 
         $get_order = Order::find($id);
@@ -133,4 +140,5 @@ class PanelTransactionOnsite extends Controller
 
         return redirect()->route('panel.transaction.addinvoice.onsite')->with('success', 'cancel order success');
     }
+
 }
