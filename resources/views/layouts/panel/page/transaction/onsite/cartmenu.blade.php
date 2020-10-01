@@ -92,14 +92,14 @@
                                 @php
                                     $menu_data = App\Models\Menu::find($list->menu_id);
 
-                                    $get_mount = $menu_data->detail_order->mount;
-                                    $get_price = $menu_data->detail_order->price;
+                                    $get_mount = $list->mount;
+                                    $get_price = $list->price;
                                     $subtotal = $get_mount*$get_price;
                                 @endphp
                                 <img src="{{ asset("uploads/menu/$menu_data->id/$menu_data->image") }}" width="60" class="mr-3 rounded" alt="{{ $menu_data->name }}">
                                 <div class="media-body">
                                     <div class="d-flex justify-content-between row mbn-20 mr-1 ml-1">
-                                        <h6 class="mt-0">{{ $menu_data->name }} <span class="badge badge-pill badge-primary">{{ $menu_data->detail_order->size }}</span></h6>
+                                        <h6 class="mt-0">{{ $menu_data->name }} <span class="badge badge-pill badge-primary">{{ $list->size }}</span></h6>
                                         <div class="dropdown">
                                             <a class="toggle" id="dropdownActionOrder" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fa fa-caret-down"></i><span class="badge"></span></a>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownActionOrder">
@@ -113,9 +113,8 @@
                                     </div>
                                     <div class="d-flex justify-content-between row mbn-20 mr-1 ml-1 mt-20">
                                         <p>
-                                            <strong>{{ $menu_data->detail_order->mount }}</strong> x {{ number_format($menu_data->detail_order->price) }}
-                                            </p>
-                                        
+                                            {{ $list->mount }} x {{ number_format($list->price) }}
+                                        </p>
                                         <p>
                                             Rp. {{ number_format($subtotal) }}
                                         </p>

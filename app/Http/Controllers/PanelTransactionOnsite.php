@@ -87,18 +87,39 @@ class PanelTransactionOnsite extends Controller
         }
 
         // return dd($request->get('menu_id'), $request->get('mount'), $request->get('size'), $get_price);
-        $post = Detail::create([
-            'order_id' => $id,
-            'menu_id' => $request->get('menu_id'),
-            'mount' => $request->get('mount'),
-            'size' => $request->get('size'),
-            'price' => $get_price,
-        ]);
+        $check_order_menu = Detail::where('order_id', $id)->where('menu_id', $request->menu_id)->where('size', $request->size)->first();
+        if ($check_order_menu != null) {
+            if ($check_order_menu->size == $request->get('size')) {
 
-        if ($post) {
-            return redirect()->route('panel.transaction.cartmenu.onsite', $id)->with('success', 'Menu added');
+                // find and get current order list
+                $get_current_menu = Detail::find($check_order_menu->id);
+                $current_mount = $get_current_menu->mount;
+                $updated_mount = $current_mount+$request->get('mount');
+
+                // update mount
+                $up = $get_current_menu->update([
+                    'mount' => $updated_mount,
+                ]);
+                if ($up) {
+                    return redirect()->route('panel.transaction.cartmenu.onsite', $id)->with('success', 'Menu updated');
+                } else {
+                    return back();
+                }
+            }
         } else {
-            return back();
+            $post = Detail::create([
+                'order_id' => $id,
+                'menu_id' => $request->get('menu_id'),
+                'mount' => $request->get('mount'),
+                'size' => $request->get('size'),
+                'price' => $get_price,
+            ]);
+
+            if ($post) {
+                return redirect()->route('panel.transaction.cartmenu.onsite', $id)->with('success', 'Menu added');
+            } else {
+                return back();
+            }
         }
     }
 
