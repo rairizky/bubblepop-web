@@ -23,7 +23,6 @@
                         <!-- content -->
                         <form action="#" method="GET">
                             <div class="mb-20">
-                                <label>Search</label>
                                 <input type="text" name="search" class="form-control" placeholder="Search menu...">
                             </div>
                         </form>
@@ -103,6 +102,8 @@
                                         <div class="dropdown">
                                             <a class="toggle" id="dropdownActionOrder" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fa fa-caret-down"></i><span class="badge"></span></a>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownActionOrder">
+                                                <a class="dropdown-item" href="{{ route('panel.transaction.extratopping.onsite', [$current_customer->id, $list->id]) }}">Add Extra Topping</a>
+                                                <hr>
                                                 <a class="dropdown-item" href="#">Edit</a>
                                                 <hr>
                                                 <a class="dropdown-item" href="{{ route('panel.transaction.deletemenuorder.onsite', [$current_customer->id, $list->id]) }}">Delete</a>
@@ -128,12 +129,7 @@
                 </div>
                 <div class="mt-3 box">
                     <div class="box-head">
-                        <div class="d-flex justify-content-between row mbn-20 mr-1 ml-1 pb-3">
-                            <h4 class="title">Extra Topping</h4>
-                            <a href="#">
-                                <span class="badge badge-pill badge-primary"><i class="zmdi zmdi-plus"></i></span>
-                            </a>
-                        </div>
+                        <h4 class="title">Extra Topping</h4>
                     </div>
                     <div class="box-body">
 

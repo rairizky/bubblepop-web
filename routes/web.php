@@ -94,6 +94,9 @@ Route::group(['middleware' => 'auth'], function() {
                     Route::post('/{id}/addmenu', [PanelTransactionOnsite::class, 'storeCart'])->name('panel.transaction.storecart.onsite');
                     Route::get('/{id}/{idmenu}/delete-menu', [PanelTransactionOnsite::class, 'deleteMenuOrder'])->name('panel.transaction.deletemenuorder.onsite');
                     Route::get('/{id}/delete', [PanelTransactionOnsite::class, 'cancelOrder'])->name('panel.transaction.cancelorder.onsite');
+
+                    // topping
+                    Route::get('/{id}/add-topping/{menulistid}', [PanelTransactionOnsite::class, 'extraTopping'])->name('panel.transaction.extratopping.onsite');
                 });
 
                 // Scan

@@ -121,6 +121,16 @@ class PanelTransactionOnsite extends Controller
         }
     }
 
+    public function extraTopping($id, $menulistid) {
+
+
+        return view('layouts.panel.page.transaction.onsite.extratopping');
+    }
+
+    public function storeExtraTopping($id, $ordermenulist, Request $request) {
+
+    }
+
     public function deleteMenuOrder($id, $idmenu) {
 
         $find_order_menu = Detail::where('id', $idmenu)->firstOrFail();
