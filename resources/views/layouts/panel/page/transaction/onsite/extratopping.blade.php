@@ -48,16 +48,32 @@
                         <h4 class="title">Extra Topping</h4>
                     </div>
                     <div class="box-body">
+                        @if ($message = Session::get('error'))
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            {{ $message }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        @endif
+
                         @for ($i = 1; $i <= $get_order_menu->mount; $i++)
                             <div class="mb-20">
-                                <form action="#" method="POST">
+                                <form action="{{ route('panel.transaction.storeextratopping.onsite',[$current_customer->id, $get_order_menu->id]) }}" method="POST">
                                     @csrf
-                                    {{ $i }}.
-                                    <select class="js-example-basic-multiple" name="topping[]" multiple="multiple">
-                                        @foreach ($get_toppings as $topping)     
-                                        <option value="{{ $topping->id }}">{{ $topping->name }} ({{ number_format($topping->price) }})</option>
-                                        @endforeach
-                                    </select>
+                                    <div class="form-group mb-5">
+                                        <label>{{ $i }}.</label>
+                                        <select class="js-example-basic-multiple" name="topping[]" multiple="multiple">
+                                            @foreach ($get_toppings as $topping)     
+                                            <option value="{{ $topping->id }}">{{ $topping->name }} ({{ number_format($topping->price) }})</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                    <div class="form-group d-flex justify-content-end">
+                                        <button class="btn btn-primary btn-sm">
+                                            <i class="zmdi zmdi-plus"></i><span></span>
+                                        </button>
+                                    </div>
                                 </form>
                             </div>
                         @endfor

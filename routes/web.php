@@ -97,6 +97,7 @@ Route::group(['middleware' => 'auth'], function() {
 
                     // topping
                     Route::get('/{id}/add-topping/{menulistid}', [PanelTransactionOnsite::class, 'extraTopping'])->name('panel.transaction.extratopping.onsite');
+                    Route::post('/{id}/add-topping/{menulistid}', [PanelTransactionOnsite::class, 'storeExtraTopping'])->name('panel.transaction.storeextratopping.onsite');
                 });
 
                 // Scan
