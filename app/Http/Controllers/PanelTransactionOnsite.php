@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Detail;
 use App\Models\Menu;
 use App\Models\Order;
+use App\Models\Topping;
 use Illuminate\Http\Request;
 
 class PanelTransactionOnsite extends Controller
@@ -123,8 +125,19 @@ class PanelTransactionOnsite extends Controller
 
     public function extraTopping($id, $menulistid) {
 
+        $current_customer = Order::where('cashier', auth()->user()->id)->where('status', 'pending')->where('id', $id)->first();
+        $get_order_menu = Detail::where('order_id', $id)->where('id', $menulistid)->firstOrFail();
 
-        return view('layouts.panel.page.transaction.onsite.extratopping');
+        // get menu desc
+        $menu_data = Menu::find($get_order_menu->menu_id);
+
+        $get_mount = $get_order_menu->mount;
+        $get_price = $get_order_menu->price;
+
+        // all topping
+        $get_toppings = Topping::all()->where('status', 'available');
+
+        return view('layouts.panel.page.transaction.onsite.extratopping', compact('get_order_menu', 'current_customer', 'menu_data', 'get_mount', 'get_price', 'get_toppings'));
     }
 
     public function storeExtraTopping($id, $ordermenulist, Request $request) {
