@@ -11,9 +11,13 @@ class Detail extends Model
 
     protected $table = "details";
     protected $fillable = ['order_id', 'menu_id', 'mount', 'size', 'price'];
-    protected $guard = [] ;
+    protected $guard = [];
 
     public function menu_item() {
         return $this->belongsTo('App\Models\Menu');
+    }
+
+    public function extra_item() {
+        return $this->hasMany('App\Models\Extra');
     }
 }

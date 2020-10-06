@@ -58,24 +58,52 @@
                         @endif
 
                         @for ($i = 1; $i <= $get_order_menu->mount; $i++)
-                            <div class="mb-20">
-                                <form action="{{ route('panel.transaction.storeextratopping.onsite',[$current_customer->id, $get_order_menu->id]) }}" method="POST">
-                                    @csrf
-                                    <div class="form-group mb-5">
-                                        <label>{{ $i }}.</label>
-                                        <select class="js-example-basic-multiple" name="topping[]" multiple="multiple">
-                                            @foreach ($get_toppings as $topping)     
-                                            <option value="{{ $topping->id }}">{{ $topping->name }} ({{ number_format($topping->price) }})</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    <div class="form-group d-flex justify-content-end">
-                                        <button class="btn btn-primary btn-sm">
-                                            <i class="zmdi zmdi-plus"></i><span></span>
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
+
+                            @php
+                                $get_extra = App\Models\Extra::all()->where('detail_id', $get_order_menu->id)->where('extra_for', $i);
+                            @endphp
+
+                            @if ($get_extra->isEmpty())
+                                <div class="mb-20">
+                                    <form action="{{ route('panel.transaction.storeextratopping.onsite',[$current_customer->id, $get_order_menu->id]) }}" method="POST">
+                                        @csrf
+                                        <div class="form-group mb-5">
+                                            <input type="text" name="extra_id" value="{{ $i }}" hidden readonly>
+                                            <label>{{ $i }}.</label>
+                                            <select class="js-example-basic-multiple" name="topping[]" multiple="multiple">
+                                                @foreach ($get_toppings as $topping)     
+                                                <option value="{{ $topping->id }}">{{ $topping->name }} ({{ number_format($topping->price) }})</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group d-flex justify-content-end">
+                                            <button class="btn btn-primary btn-sm">
+                                                <i class="zmdi zmdi-plus"></i><span></span>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            @else
+                                <div class="mb-20">
+                                    <form action="#" method="POST">
+                                        @csrf
+                                        <div class="form-group mb-5">
+                                            <input type="text" name="extra_id" value="{{ $i }}" hidden readonly>
+                                            <label>{{ $i }}.</label>
+                                            <select class="js-example-basic-multiple" name="topping[]" multiple="multiple">
+                                                @foreach ($get_toppings as $topping)  
+                                                <option value="{{ $topping->id }}" @foreach ($get_extra as $item) @if($topping->id == $item->topping_id) selected @endif @endforeach>{{ $topping->name }} ({{ number_format($topping->price) }})</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="form-group d-flex justify-content-end">
+                                            <button class="btn btn-primary btn-sm">
+                                                <i class="zmdi zmdi-edit"></i><span></span>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            @endif
                         @endfor
                     </div>
                 </div>

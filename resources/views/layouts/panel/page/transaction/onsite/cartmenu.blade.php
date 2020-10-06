@@ -94,6 +94,9 @@
                                     $get_mount = $list->mount;
                                     $get_price = $list->price;
                                     $subtotal = $get_mount*$get_price;
+
+                                    // get extra order menu
+                                    $get_extra = $list->extra_item->where('detail_id', $list->id);
                                 @endphp
                                 <img src="{{ asset("uploads/menu/$menu_data->id/$menu_data->image") }}" width="60" class="mr-3 rounded" alt="{{ $menu_data->name }}">
                                 <div class="media-body">
@@ -120,22 +123,30 @@
                                     </div>
                                 </div>
                             </div>
+                            <div>
+                                @for ($i = 1; $i <= $list->mount; $i++)
+                                    @if (!$get_extra->where('extra_for', $i)->isEmpty())
+                                        <label class="mt-2 ml-2">{{ $i.'.' }}</label>
+                                        @foreach ($get_extra->where('extra_for', $i) as $item)
+                                            @php
+                                                $get_topping_item = App\Models\Topping::where('id', $item->topping_id)->first();
+                                            @endphp
+                                            <div class="d-flex justify-content-between row mr-1 ml-4">
+                                                <div>
+                                                    <i class="zmdi zmdi-plus"></i><span> {{ $get_topping_item->name }}</span>
+                                                </div>
+                                                <div>
+                                                    Rp. {{ number_format($get_topping_item->price) }}
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                @endfor
+                            </div>
                             <hr>
                         @endforeach
                         <p>
                             <strong>Total {{ $sum_item }} items.</strong>
-                        </p>
-                    </div>
-                </div>
-                <div class="mt-3 box">
-                    <div class="box-head">
-                        <h4 class="title">Extra Topping</h4>
-                    </div>
-                    <div class="box-body">
-
-                        <hr>
-                        <p>
-                            <strong>Total 0 extra toppings.</strong>
                         </p>
                     </div>
                 </div>

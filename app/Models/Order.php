@@ -17,4 +17,9 @@ class Order extends Model
 
         return $this->hasMany('App\Models\Detail');
     }
+
+    public function list_extra() {
+
+        return $this->hasMany('App\Models\Extra');
+    }
 }

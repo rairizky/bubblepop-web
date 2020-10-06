@@ -16,4 +16,8 @@ class Topping extends Model
     public function category() {
         return $this->belongsTo('App\Models\Category');
     }
+
+    public function extra_item() {
+        return $this->hasMany('App\Models\Extra');
+    }
 }

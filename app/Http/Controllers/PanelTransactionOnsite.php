@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Models\Detail;
+use App\Models\Extra;
 use App\Models\Menu;
 use App\Models\Order;
 use App\Models\Topping;
@@ -54,6 +55,9 @@ class PanelTransactionOnsite extends Controller
         // get total cart item
         $sum_item = $order_detail->sum('mount');
 
+        // list extra
+        $extra_order_detail = Order::find($id)->list_extra;
+
         // get total price
         $get_list = $order_detail;
         $total = 0;
@@ -62,6 +66,11 @@ class PanelTransactionOnsite extends Controller
             $price = $data->price;
             $count = $mount*$price;
             $total += $count;
+        }
+
+        foreach ($extra_order_detail as $data) {
+            $get_topping = Topping::find($data->topping_id);
+            $total += $get_topping->price;
         }
         // return dd($total);
 
@@ -137,7 +146,11 @@ class PanelTransactionOnsite extends Controller
         // all topping
         $get_toppings = Topping::all()->where('status', 'available');
 
-        return view('layouts.panel.page.transaction.onsite.extratopping', compact('get_order_menu', 'current_customer', 'menu_data', 'get_mount', 'get_price', 'get_toppings'));
+        // order menu has topping?
+        $order_detail_topping = $get_order_menu->extra_item;
+        // return dd($order_detail_topping->extra_for == 1);
+
+        return view('layouts.panel.page.transaction.onsite.extratopping', compact('get_order_menu', 'current_customer', 'menu_data', 'get_mount', 'get_price', 'get_toppings', 'order_detail_topping'));
     }
 
     public function storeExtraTopping($id, $menulistid, Request $request) {
@@ -149,6 +162,16 @@ class PanelTransactionOnsite extends Controller
         $current_customer = Order::where('cashier', auth()->user()->id)->where('status', 'pending')->where('id', $id)->first();
         $get_order_menu = Detail::where('order_id', $id)->where('id', $menulistid)->firstOrFail();
 
+        foreach ($request->get('topping') as $topping) {
+            Extra::create([
+                'order_id' => $current_customer->id,
+                'detail_id' => $get_order_menu->id,
+                'topping_id' => $topping,
+                'extra_for' => $request->get('extra_id')
+            ]);
+        }
+
+        return redirect()->route('panel.transaction.storeextratopping.onsite', [$current_customer->id, $get_order_menu->id])->with('success', 'extra added');
     }
 
     public function deleteMenuOrder($id, $idmenu) {
