@@ -46,7 +46,7 @@ class PanelTransactionOnsite extends Controller
     public function cartMenu($id) {
 
         // get path and all menu
-        $menus = Menu::all();
+        $menus = Menu::paginate(6);
         $current_customer = Order::where('cashier', auth()->user()->id)->where('status', 'pending')->where('id', $id)->first();
 
         // list order
@@ -177,6 +177,11 @@ class PanelTransactionOnsite extends Controller
     public function deleteMenuOrder($id, $idmenu) {
 
         $find_order_menu = Detail::where('id', $idmenu)->firstOrFail();
+        $find_extra = $find_order_menu->extra_item();
+        
+        if ($find_extra->exists()) {
+            $find_extra->delete();
+        }
         $find_order_menu->delete();
         return redirect()->route('panel.transaction.cartmenu.onsite', $id)->with('success', 'Menu deleted');
     }

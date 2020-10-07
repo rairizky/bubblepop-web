@@ -23,9 +23,10 @@
                         <!-- content -->
                         <form action="#" method="GET">
                             <div class="mb-20">
-                                <input type="text" name="search" class="form-control" placeholder="Search menu...">
+                                <input type="text" name="search" class="form-control form-control-sm" placeholder="Search menu...">
                             </div>
                         </form>
+                        <!-- notice -->
                         @if ($message = Session::get('success'))
                         <div class="alert alert-success alert-dismissible fade show" role="alert">
                             {{ $message }}
@@ -38,7 +39,7 @@
                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                             {{ $message }}
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true"></span>
+                                <span aria-hidden="true"></span>
                             </button>
                         </div>
                         @endif
@@ -46,7 +47,7 @@
                             @foreach ($menus as $data)
                             <div class="col-sm-6 mb-30">
                                 <div class="card">
-                                    <img src="{{ asset("uploads/menu/$data->id/$data->image") }}" class="card-img-top" alt="{{ $data->image }}">
+                                    {{-- <img src="{{ asset("uploads/menu/$data->id/$data->image") }}" class="card-img-top" alt="{{ $data->image }}"> --}}
                                     <div class="card-body">
                                         <h5 class="card-title">{{ $data->name }}</h5>
                                         <form action="{{ route('panel.transaction.storecart.onsite', $current_customer->id) }}" method="POST">
@@ -65,16 +66,19 @@
                                             </div>
                                             <div class="mb-20">
                                                 <label>Mount</label>
-                                                <input type="number" name="mount" class="form-control" placeholder="eg: 3" autocomplete="off">
+                                                <input type="number" name="mount" class="form-control form-control-sm" placeholder="eg: 3" autocomplete="off">
                                             </div>
                                             <div>
-                                                <button type="submit" class="btn btn-primary btn-block">Add</button>
+                                                <button type="submit" class="btn btn-primary btn-block btn-sm">Add</button>
                                             </div>
                                         </form>
                                     </div>
                                 </div>
                             </div>
                             @endforeach
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            {{ $menus->links() }}
                         </div>
                     </div>
                 </div>
@@ -105,7 +109,7 @@
                                         <div class="dropdown">
                                             <a class="toggle" id="dropdownActionOrder" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><i class="fa fa-caret-down"></i><span class="badge"></span></a>
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownActionOrder">
-                                                <a class="dropdown-item" href="{{ route('panel.transaction.extratopping.onsite', [$current_customer->id, $list->id]) }}">Add Extra Topping</a>
+                                                <a class="dropdown-item" href="{{ route('panel.transaction.extratopping.onsite', [$current_customer->id, $list->id]) }}">Extra Topping</a>
                                                 <hr>
                                                 <a class="dropdown-item" href="#">Edit</a>
                                                 <hr>
@@ -115,7 +119,7 @@
                                     </div>
                                     <div class="d-flex justify-content-between row mbn-20 mr-1 ml-1 mt-20">
                                         <p>
-                                            {{ $list->mount }} x {{ number_format($list->price) }}
+                                            <strong>{{ $list->mount }}</strong> x {{ number_format($list->price) }}
                                         </p>
                                         <p>
                                             Rp. {{ number_format($subtotal) }}
