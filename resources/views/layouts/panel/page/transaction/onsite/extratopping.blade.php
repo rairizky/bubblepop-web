@@ -65,7 +65,7 @@
 
                             @if ($get_extra->isEmpty())
                                 <div class="mb-20">
-                                    <form action="{{ route('panel.transaction.storeextratopping.onsite',[$current_customer->id, $get_order_menu->id]) }}" method="POST">
+                                    <form action="{{ route('panel.transaction.storeextratopping.onsite', [$current_customer->id, $get_order_menu->id]) }}" method="POST">
                                         @csrf
                                         <div class="form-group mb-5">
                                             <input type="text" name="extra_id" value="{{ $i }}" hidden readonly>
@@ -85,8 +85,9 @@
                                 </div>
                             @else
                                 <div class="mb-20">
-                                    <form action="#" method="POST">
+                                    <form action="{{ route('panel.transaction.updateextratopping.onsite', [$current_customer->id, $get_order_menu->id]) }}" method="POST">
                                         @csrf
+                                        @method('PUT')
                                         <div class="form-group mb-5">
                                             <input type="text" name="extra_id" value="{{ $i }}" hidden readonly>
                                             <label>{{ $i }}.</label>

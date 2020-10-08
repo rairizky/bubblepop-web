@@ -77,6 +77,43 @@ class PanelTransactionOnsite extends Controller
         return view('layouts.panel.page.transaction.onsite.cartmenu', compact('menus', 'current_customer', 'order_detail', 'sum_item', 'total'));
     }
 
+    public function searchMenu($id, Request $request) {
+
+        $get_query = $request->get('search');
+
+        // get path and all menu
+        $menus = Menu::where('name', 'like', "%".$get_query."%")->paginate(6);
+        $menus->appends($request->only('search'));
+        $current_customer = Order::where('cashier', auth()->user()->id)->where('status', 'pending')->where('id', $id)->first();
+
+        // list order
+        $order_detail = Order::find($id)->list_order;
+
+        // get total cart item
+        $sum_item = $order_detail->sum('mount');
+
+        // list extra
+        $extra_order_detail = Order::find($id)->list_extra;
+
+        // get total price
+        $get_list = $order_detail;
+        $total = 0;
+        foreach ($get_list as $data) {
+            $mount = $data->mount;
+            $price = $data->price;
+            $count = $mount*$price;
+            $total += $count;
+        }
+
+        foreach ($extra_order_detail as $data) {
+            $get_topping = Topping::find($data->topping_id);
+            $total += $get_topping->price;
+        }
+        // return dd($total);
+
+        return view('layouts.panel.page.transaction.onsite.cartmenu', compact('menus', 'current_customer', 'order_detail', 'sum_item', 'total'));
+    }
+
     public function storeCart(Request $request, $id) {
 
         if ($request->get('size') == null && $request->get('mount') == null) {
@@ -172,6 +209,36 @@ class PanelTransactionOnsite extends Controller
         }
 
         return redirect()->route('panel.transaction.storeextratopping.onsite', [$current_customer->id, $get_order_menu->id])->with('success', 'extra added');
+    }
+
+    public function updateExtraTopping($id, $menulistid, Request $request) {
+
+        $current_customer = Order::where('cashier', auth()->user()->id)->where('status', 'pending')->where('id', $id)->first();
+        $get_order_menu = Detail::where('order_id', $id)->where('id', $menulistid)->firstOrFail();
+        $find_extra = $get_order_menu->extra_item();
+
+        if ($request->get('topping') == null) {
+            if ($find_extra->exists()) {
+                $find_extra->where('extra_for', $request->get('extra_id'))->delete();
+            }
+
+            return redirect()->route('panel.transaction.storeextratopping.onsite', [$current_customer->id, $get_order_menu->id])->with('success', 'extra deleted');
+        } else {
+            if ($find_extra->exists()) {
+                $find_extra->where('extra_for', $request->get('extra_id'))->delete();
+            }
+    
+            foreach ($request->get('topping') as $topping) {
+                Extra::create([
+                    'order_id' => $current_customer->id,
+                    'detail_id' => $get_order_menu->id,
+                    'topping_id' => $topping,
+                    'extra_for' => $request->get('extra_id')
+                ]);
+            }
+    
+            return redirect()->route('panel.transaction.storeextratopping.onsite', [$current_customer->id, $get_order_menu->id])->with('success', 'extra updated');
+        }
     }
 
     public function deleteMenuOrder($id, $idmenu) {

@@ -21,9 +21,19 @@
                     </div>
                     <div class="box-body">
                         <!-- content -->
-                        <form action="#" method="GET">
+                        <form action="{{ route('panel.transaction.searchmenu.onsite', $current_customer->id) }}" method="GET">
                             <div class="mb-20">
-                                <input type="text" name="search" class="form-control form-control-sm" placeholder="Search menu...">
+                                <input type="text" name="search" class="form-control form-control-sm" placeholder="Search menu..." autocomplete="off">
+                                @if (app('request')->input('search'))
+                                    <div class="d-flex justify-content-between mt-2">
+                                        <p>search for <strong>{{ app('request')->input('search') }}</strong> :</p>
+                                        <p>
+                                            <a class="toggle" href="{{ route('panel.transaction.cartmenu.onsite', $current_customer->id) }}">
+                                                <i class="ti-close"></i><span class="badge"></span>
+                                            </a>
+                                        </p>
+                                    </div>
+                                @endif
                             </div>
                         </form>
                         <!-- notice -->
