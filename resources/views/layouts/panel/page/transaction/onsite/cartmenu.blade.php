@@ -10,7 +10,8 @@
     <!-- All Product Start -->
     <div class="col-xlg-4 col-lg-12 col-12 mb-30">
         <p>
-            <span class="text-heading fw-600">Order Owner :</span> {{ $current_customer->name }} <br>
+            <span class="text-heading fw-600">@if($current_customer->user_id == null) <span class="badge badge-pill badge-inf">Onsite</span> @else <span class="badge badge-pill">Mobile</span> @endif</span> <br>
+            <span class="text-heading fw-600">Order Owner :</span> {{ $current_customer->name }}  <br>
             <span class="text-heading fw-600">Cashier Name :</span> {{ \App\Models\User::find($current_customer->cashier)->name }}
         </p>
         <div class="row">
@@ -59,7 +60,7 @@
                                 <div class="card">
                                     {{-- <img src="{{ asset("uploads/menu/$data->id/$data->image") }}" class="card-img-top" alt="{{ $data->image }}"> --}}
                                     <div class="card-body">
-                                        <h5 class="card-title">{{ $data->name }}</h5>
+                                        <h5 class="card-title">{{ $data->name }} <span class="badge badge-danger badge-pill">@if($data->status == "notavailable") notavailable @endif</span></h5>
                                         <form action="{{ route('panel.transaction.storecart.onsite', $current_customer->id) }}" method="POST">
                                             @csrf
                                             <input type="text" name="menu_id" value="{{ $data->id }}" hidden>
@@ -67,19 +68,19 @@
                                                 <label>Size</label>
                                                 <div class="adomx-checkbox-radio-group inline">
                                                     <label class="adomx-radio">
-                                                        <input id="size_m" type="radio" name="size" value="M"> <i class="icon"></i>Rp. {{ number_format($data->price_m) }} (M)
+                                                        <input id="size_m" type="radio" name="size" value="M" @if($data->status == "notavailable") disabled @endif> <i class="icon"></i>Rp. {{ number_format($data->price_m) }} (M)
                                                     </label>
                                                     <label class="adomx-radio">
-                                                        <input id="size_l" type="radio" name="size" value="L"> <i class="icon"></i>Rp. {{ number_format($data->price_l) }} (L)
+                                                        <input id="size_l" type="radio" name="size" value="L" @if($data->status == "notavailable") disabled @endif> <i class="icon"></i>Rp. {{ number_format($data->price_l) }} (L)
                                                     </label>
                                                 </div>
                                             </div>
                                             <div class="mb-20">
                                                 <label>Mount</label>
-                                                <input type="number" name="mount" class="form-control form-control-sm" placeholder="eg: 3" autocomplete="off">
+                                                <input type="number" name="mount" class="form-control form-control-sm" @if($data->status == "notavailable") disabled @endif placeholder="eg: 3" autocomplete="off">
                                             </div>
                                             <div>
-                                                <button type="submit" class="btn btn-primary btn-block btn-sm">Add</button>
+                                                <button type="submit" class="btn btn-primary btn-block btn-sm" @if($data->status == "notavailable") disabled @endif>Add</button>
                                             </div>
                                         </form>
                                     </div>

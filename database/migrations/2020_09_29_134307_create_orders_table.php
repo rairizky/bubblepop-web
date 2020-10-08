@@ -17,7 +17,7 @@ class CreateOrdersTable extends Migration
             $table->id();
             $table->string('name');
             $table->integer('user_id')->nullable();
-            $table->integer('cashier');
+            $table->integer('cashier')->nullable();
             $table->integer('total')->nullable();
             $table->integer('paid')->nullable();
             $table->enum('status', ['finish', 'pending']);
