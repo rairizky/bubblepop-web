@@ -169,6 +169,51 @@ class PanelTransactionOnsite extends Controller
         }
     }
 
+    public function updateChartMount($id, $iddetail, Request $request) {
+
+        if ($request->get('qty') < 1) {
+            return redirect()->back()->with('error', "mount can't less than 1");
+        } 
+        
+        $current_customer = Order::where('cashier', auth()->user()->id)->where('status', 'pending')->where('id', $id)->first();
+        $detail_menu = Detail::where('order_id', $current_customer->id)->where('id', $iddetail)->firstOrFail();
+
+        $current_mount = $detail_menu->mount;
+
+        if ($request->get('qty') > $current_mount) {
+            $up = $detail_menu->update([
+                'mount' => $request->get('qty')
+            ]);
+            
+            if ($up) {
+                return redirect()->route('panel.transaction.cartmenu.onsite', $current_customer->id)->with('success', 'Menu mount edited');
+            } else {
+                return redirect()->back();
+            }
+        } else {
+            $barricade_start = intval($request->get('qty'));
+            // $arr = [];
+            for ($i = $barricade_start+1; $i <= $current_mount; $i++) { 
+                // array_push($arr, $i); 
+                $find_extra = Extra::where('order_id', $current_customer->id)->where('detail_id', $detail_menu->id)->where('extra_for', $i);
+                if ($find_extra->exists()) {
+                    $find_extra->delete();
+                }
+            };
+            // return dd($arr);
+            $up = $detail_menu->update([
+                'mount' => $request->get('qty')
+            ]);
+            
+            if ($up) {
+                return redirect()->route('panel.transaction.cartmenu.onsite', $current_customer->id)->with('success', 'Menu mount edited');
+            } else {
+                return redirect()->back();
+            }
+        }
+
+    }
+
     public function extraTopping($id, $menulistid) {
 
         $current_customer = Order::where('cashier', auth()->user()->id)->where('status', 'pending')->where('id', $id)->first();
@@ -257,10 +302,16 @@ class PanelTransactionOnsite extends Controller
 
         $get_order = Order::find($id);
         $get_detail_order = $get_order->list_order();
+        $get_extra_menu = $get_order->list_extra();
 
         if ($get_detail_order->exists()) {
             $get_detail_order->delete();
         }
+        
+        if ($get_extra_menu->exists()) {
+            $get_extra_menu->delete();
+        }
+
         $get_order->delete();
 
         return redirect()->route('panel.transaction.addinvoice.onsite')->with('success', 'cancel order success');

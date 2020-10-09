@@ -138,7 +138,9 @@
                                     </div>
                                     <div id="formEditMount{{ $list->id }}" style="display: none" class="mt-20">
                                         <div>
-                                            <form action="#" method="POST">
+                                            <form action="{{ route('panel.transaction.updatechartmount.onsite', [$current_customer->id, $list->id]) }}" method="POST">
+                                                @csrf
+                                                @method('PUT')
                                                 <div class="row ml-1">
                                                     <input type="number" name="qty" class="form-control form-control-sm" style="max-width: 70px" value="{{ $list->mount }}">
                                                     <button type="submit" class="btn btn-sm btn-primary ml-1">

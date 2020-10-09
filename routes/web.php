@@ -93,6 +93,7 @@ Route::group(['middleware' => 'auth'], function() {
                     Route::get('/{id}', [PanelTransactionOnsite::class, 'cartMenu'])->name('panel.transaction.cartmenu.onsite');
                     Route::get('/{id}/q', [PanelTransactionOnsite::class, 'searchMenu'])->name('panel.transaction.searchmenu.onsite');
                     Route::post('/{id}/addmenu', [PanelTransactionOnsite::class, 'storeCart'])->name('panel.transaction.storecart.onsite');
+                    Route::put('/{id}/{iddetail}/update', [PanelTransactionOnsite::class, 'updateChartMount'])->name('panel.transaction.updatechartmount.onsite');
                     Route::get('/{id}/{idmenu}/delete-menu', [PanelTransactionOnsite::class, 'deleteMenuOrder'])->name('panel.transaction.deletemenuorder.onsite');
                     Route::get('/{id}/delete', [PanelTransactionOnsite::class, 'cancelOrder'])->name('panel.transaction.cancelorder.onsite');
 
