@@ -122,7 +122,7 @@
                                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownActionOrder">
                                                 <a class="dropdown-item" href="{{ route('panel.transaction.extratopping.onsite', [$current_customer->id, $list->id]) }}">Extra Topping</a>
                                                 <hr>
-                                                <a class="dropdown-item" href="#">Edit</a>
+                                                <button id="txtEditMount{{ $list->id }}" onclick="toggleEditForm({{ $list->id }})" class="dropdown-item">Edit</button>
                                                 <hr>
                                                 <a class="dropdown-item" href="{{ route('panel.transaction.deletemenuorder.onsite', [$current_customer->id, $list->id]) }}">Delete</a>
                                             </div>
@@ -135,6 +135,18 @@
                                         <p>
                                             Rp. {{ number_format($subtotal) }}
                                         </p>
+                                    </div>
+                                    <div id="formEditMount{{ $list->id }}" style="display: none" class="mt-20">
+                                        <div>
+                                            <form action="#" method="POST">
+                                                <div class="row ml-1">
+                                                    <input type="number" name="qty" class="form-control form-control-sm" style="max-width: 70px" value="{{ $list->mount }}">
+                                                    <button type="submit" class="btn btn-sm btn-primary ml-1">
+                                                        <i class="zmdi zmdi-edit"></i><span></span>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -240,6 +252,18 @@
             cell.innerHTML = i+1;
         } );
     } ).draw();
+
+    function toggleEditForm(id) {
+        var area = document.getElementById(`formEditMount${id}`);
+        var txt = document.getElementById(`txtEditMount${id}`);
+        if (area.style.display === "none") {
+            txt.innerHTML = "Cancel Edit";
+            area.style.display = "block";
+        } else {
+            txt.innerHTML = "Edit";
+            area.style.display = "none";
+        }
+    }
 
     document.getElementById("btnEndOrder").disabled = true;
     function sum() {
