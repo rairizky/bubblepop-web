@@ -185,7 +185,7 @@
                     </div>
                     <div class="box-body">
                         <div class="form">
-                            <form action="#" method="POST">
+                            <form action="{{ route('panel.transaction.endorder.onsite', $current_customer->id) }}" method="POST">
                                 @csrf
                                 <div class="row row-10 mbn-20">
                                     <div class="col-12 mb-20">

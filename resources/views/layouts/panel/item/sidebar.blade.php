@@ -34,12 +34,12 @@
                 @can('isAdmin')
                 <li class="has-sub-menu {{ request()->is('v1/panel/product*')? 'active' : '' }}">
                     <a href="#">
-                        <i class="fa fa-cutlery"></i> <span>Product</span>
+                        <i class="zmdi zmdi-drink"></i> <span>Product</span>
                     </a>
                     <ul class="side-header-sub-menu">
                         <li class="has-sub-menu {{ request()->is('v1/panel/product/menu*')? 'active' : '' }}">
                             <a href="#">
-                                <i class="fa fa-beer"></i> <span>Menu</span>
+                                <i class="zmdi zmdi-coffee"></i> <span>Menu</span>
                             </a>
                             <ul class="side-header-sub-menu">
                                 <li class="{{ Route::is('panel.product.index.menu')? 'active' : '' }}">
@@ -86,6 +86,23 @@
                         <li class="{{ Route::is('panel.category.add')? 'active' : '' }}">
                             <a href="{{ route('panel.category.add') }}">
                                 <span>Add Category</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="has-sub-menu ">
+                    <a href="#">
+                        <i class="zmdi zmdi-confirmation-number"></i> <span>Promo</span>
+                    </a>
+                    <ul class="side-header-sub-menu">
+                        <li class="#">
+                            <a href="#">
+                                <span>Manage Promo</span>
+                            </a>
+                        </li>
+                        <li class="#">
+                            <a href="#">
+                                <span>Add Promo</span>
                             </a>
                         </li>
                     </ul>

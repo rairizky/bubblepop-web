@@ -101,6 +101,9 @@ Route::group(['middleware' => 'auth'], function() {
                     Route::get('/{id}/add-topping/{menulistid}', [PanelTransactionOnsite::class, 'extraTopping'])->name('panel.transaction.extratopping.onsite');
                     Route::post('/{id}/add-topping/{menulistid}', [PanelTransactionOnsite::class, 'storeExtraTopping'])->name('panel.transaction.storeextratopping.onsite');
                     Route::put('/{id}/add-topping/{menulistid}/update', [PanelTransactionOnsite::class, 'updateExtraTopping'])->name('panel.transaction.updateextratopping.onsite');
+
+                    // finish order
+                    Route::post('/{id}/end-order', [PanelTransactionOnsite::class, 'endOrder'])->name('panel.transaction.endorder.onsite');
                 });
 
                 // Scan

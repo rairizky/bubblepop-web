@@ -286,6 +286,33 @@ class PanelTransactionOnsite extends Controller
         }
     }
 
+    public function endOrder($id, Request $request) {
+
+        $request->validate([
+            'paid' => 'required|integer|min:'.$request->get('total')
+        ]);
+
+        $get_order = Order::where('status', 'pending')->where('cashier', auth()->user()->id)->where('id', $id)->first();
+        if ($get_order->user_id == null) {
+
+            $up = $get_order->update([
+                'total' => $request->get('total'),
+                'paid' => $request->get('paid'),
+                'status' => 'finish'
+            ]);
+
+            if ($up) {
+                return redirect()->route('panel.transaction.addinvoice.onsite')->with('success', 'Order finish');
+            } else {
+                return back();
+            }
+        } else {
+
+            // for tr scan mobile
+
+        }
+    }
+
     public function deleteMenuOrder($id, $idmenu) {
 
         $find_order_menu = Detail::where('id', $idmenu)->firstOrFail();
