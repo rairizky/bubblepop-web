@@ -23,7 +23,7 @@
     <div class="col-xlg-4 col-lg-12 col-12 mb-30">
         <div class="box">
             <div class="box-head">
-                <h4 class="title">Edit Category</h4>
+                <h4 class="title">Edit Promo</h4>
             </div>
             <div class="box-body">
                 <div class="form">
