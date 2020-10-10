@@ -90,18 +90,18 @@
                         </li>
                     </ul>
                 </li>
-                <li class="has-sub-menu ">
+                <li class="has-sub-menu {{ request()->is('v1/panel/promo*')? 'active' : '' }}">
                     <a href="#">
                         <i class="zmdi zmdi-confirmation-number"></i> <span>Promo</span>
                     </a>
                     <ul class="side-header-sub-menu">
-                        <li class="#">
-                            <a href="#">
+                        <li class="{{ Route::is('panel.promo.index')? 'active' : '' }}">
+                            <a href="{{ route('panel.promo.index') }}">
                                 <span>Manage Promo</span>
                             </a>
                         </li>
-                        <li class="#">
-                            <a href="#">
+                        <li class="{{ Route::is('panel.promo.add')? 'active' : '' }}">
+                            <a href="{{ route('panel.promo.add') }}">
                                 <span>Add Promo</span>
                             </a>
                         </li>

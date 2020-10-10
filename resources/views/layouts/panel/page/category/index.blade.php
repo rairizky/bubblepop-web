@@ -44,8 +44,8 @@
                                 <td>{{ $data->name }}</td>
                                 <td>
                                     <a href="{{ route('panel.category.edit', $data->id) }}" class="btn btn-info btn-sm">Edit</a>
-                                    <a data-toggle="modal"  class="btn btn-danger btn-sm" data-target="#modalConfirm" style="color: white;">Delete</a>
-                                    <div class="modal fade" id="modalConfirm" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                    <a data-toggle="modal"  class="btn btn-danger btn-sm" data-target="#modalConfirm{{ $data->id }}" style="color: white;">Delete</a>
+                                    <div class="modal fade" id="modalConfirm{{ $data->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                         <div class="modal-dialog modal-dialog-centered" role="document">
                                             <div class="modal-content">
                                                 <div class="modal-header">

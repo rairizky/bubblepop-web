@@ -3,6 +3,7 @@
 use App\Http\Controllers\PanelCategoryController;
 use App\Http\Controllers\PanelDashboardController;
 use App\Http\Controllers\PanelProductController;
+use App\Http\Controllers\PanelPromoController;
 use App\Http\Controllers\PanelTransactionOnsite;
 use App\Http\Controllers\PanelUsersController;
 use App\Http\Controllers\ProfileController;
@@ -60,7 +61,8 @@ Route::group(['middleware' => 'auth'], function() {
                     Route::put('/{id}/edit/update', [PanelProductController::class, 'updateMenu'])->name('panel.product.update.menu');
                     Route::delete('{id}/delete', [PanelProductController::class, 'deleteMenu'])->name('panel.product.delete.menu');
                 });
-            // Topping
+
+                // Topping
                 Route::prefix('topping/')->group(function() {
                     Route::get('', [PanelProductController::class, 'indexTopping'])->name('panel.product.index.topping');
                     Route::get('/add', [PanelProductController::class, 'addTopping'])->name('panel.product.add.topping');
@@ -79,6 +81,16 @@ Route::group(['middleware' => 'auth'], function() {
                 Route::get('/{id}/edit', [PanelCategoryController::class, 'editCategory'])->name('panel.category.edit');
                 Route::put('/{id}/edit/update', [PanelCategoryController::class, 'updateCategory'])->name('panel.category.updatecategory');
                 Route::delete('{id}/delete', [PanelCategoryController::class, 'deleteCategory'])->name('panel.category.delete');
+            });
+
+            // Promo
+            Route::prefix('promo/')->group(function() {
+                    Route::get('', [PanelPromoController::class, 'indexPromo'])->name('panel.promo.index');
+                    Route::get('/add', [PanelPromoController::class, 'addPromo'])->name('panel.promo.add');
+                    Route::post('/add', [PanelPromoController::class, 'storePromo'])->name('panel.promo.store');
+                    Route::get('/{id}/edit', [PanelPromoController::class, 'editPromo'])->name('panel.promo.edit');
+                    Route::put('/{id}/edit/update', [PanelPromoController::class, 'updatePromo'])->name('panel.promo.update');
+                    Route::delete('{id}/delete', [PanelPromoController::class, 'deletePromo'])->name('panel.promo.delete');
             });
         });
 
