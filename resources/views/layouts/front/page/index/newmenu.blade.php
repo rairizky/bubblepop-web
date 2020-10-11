@@ -26,10 +26,10 @@
                                 <ul>
                                     <li style="margin-left: 15px;">
                                         <div class="row">
-                                            Rp. {{ number_format($item->price_m) }} <span class="badge">M</span>
+                                            Rp. {{ number_format($item->price_m) }} - M
                                         </div>
                                         <div class="row">
-                                            Rp. {{ number_format($item->price_m) }} <span class="badge">L</span>
+                                            Rp. {{ number_format($item->price_l) }} - L
                                         </div>
                                     </li>
                                 </ul>
@@ -41,7 +41,7 @@
         </div><!--row-->
     </div><!--container -->
 </section>
-<div class="row" style="margin-top: 32px;">
+<div class="row container justify-content-center ml-1 mr-1" style="margin-top: 32px;">
     <div class="read-more view-all">
         <a href="{{ route('bubblepop.menu') }}">View All Menu</a>
     </div>

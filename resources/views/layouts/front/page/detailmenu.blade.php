@@ -1,5 +1,7 @@
 @extends('layouts.front.front')
 
+@section('title', $get_menu->name)
+
 @section('content')
 {{-- hero --}}
 <div class="page-title parallax parallax1 flat_strech">

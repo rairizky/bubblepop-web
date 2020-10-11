@@ -1,5 +1,7 @@
 @extends('layouts.front.front')
 
+@section('title', 'Menu')
+
 @section('content')
 {{-- hero --}}
 <div class="page-title parallax parallax1 flat_strech">
@@ -59,10 +61,10 @@
                             <ul>
                                 <li style="margin-left: 15px;">
                                     <div class="row">
-                                        Rp. {{ number_format($menu->price_m) }} <span class="badge">M</span>
+                                        Rp. {{ number_format($menu->price_m) }} - M
                                     </div>
                                     <div class="row">
-                                        Rp. {{ number_format($menu->price_m) }} <span class="badge">L</span>
+                                        Rp. {{ number_format($menu->price_l) }} - L
                                     </div>
                                 </li>
                                 <li>

@@ -4,7 +4,7 @@
     <!-- Basic Page Needs -->
     <meta charset="utf-8">
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
-    <title>Sumi Restaurant HTML Template</title>
+    <title>BUBBLE POP - @yield('title')</title>
 
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -27,8 +27,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('front/stylesheets/animate.css') }}">
 
     <!-- Favicon and touch icons  -->
-    <link href="icon/apple-touch-icon-48-precomposed.png" rel="apple-touch-icon" sizes="48x48">
-    <link href="icon/apple-touch-icon-32-precomposed.png" rel="apple-touch-icon-precomposed">
+    <link href="{{ asset('front/icon/apple-touch-icon-48-precomposed.png') }}" rel="apple-touch-icon" sizes="48x48">
+    <link href="{{ asset('front/icon/apple-touch-icon-32-precomposed.png') }}" rel="apple-touch-icon-precomposed">
     <link href="icon/favicon.png" rel="shortcut icon">
 
     <!--[if lt IE 9]>
@@ -80,4 +80,6 @@
     <script type="text/javascript" src="{{ asset('front/javascript/jquery.themepunch.tools.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('front/javascript/jquery.themepunch.revolution.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('front/javascript/slider.js') }}"></script>
+
+    @yield('script')
 </body>

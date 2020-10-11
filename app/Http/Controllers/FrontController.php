@@ -3,15 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
+use App\Models\Promo;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
 {
     public function index() {
 
+        $promos = Promo::all()->sortBy('created_at')->take(3);
+
         $menus = Menu::all()->sortByDesc('created_at')->take(3);
 
-        return view('layouts.front.page.index', compact('menus'));
+        return view('layouts.front.page.index', compact('menus', 'promos'));
     }
 
     public function menu() {
