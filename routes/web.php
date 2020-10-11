@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\FrontController;
 use App\Http\Controllers\PanelCategoryController;
 use App\Http\Controllers\PanelDashboardController;
 use App\Http\Controllers\PanelProductController;
@@ -19,6 +20,13 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// unAuth only
+Route::get('/', [FrontController::class, 'index'])->name('bubblepop.index');
+Route::get('/menu', [FrontController::class, 'menu'])->name('bubblepop.menu');
+Route::get('/menu/{id}', [FrontController::class, 'detailMenu'])->name('bubblepop.detailmenu');
+Route::get('/about', [FrontController::class, 'about'])->name('bubblepop.about');
+Route::get('/contact', [FrontController::class, 'contact'])->name('bubblepop.contact');
 
 // Auth only
 Route::group(['middleware' => 'auth'], function() {  
