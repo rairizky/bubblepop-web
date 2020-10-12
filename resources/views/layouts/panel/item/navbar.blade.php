@@ -4,7 +4,7 @@
 
             <!-- Header Logo (Header Left) Start -->
             <div class="header-logo col-auto">
-                <h3>BUBBLE POP</h3>
+                <img src="{{ asset('/images/logo/logo_bubblepop.png') }}" width="130" alt="">
             </div><!-- Header Logo (Header Left) End -->
 
             <!-- Header Right Start -->

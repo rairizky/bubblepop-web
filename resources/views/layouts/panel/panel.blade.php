@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
         <!-- Favicon -->
-        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/panel/assets/images/favicon.ico') }}">
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/images/logo/logo_bubblepop-1.png') }}">
 
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{{ asset('/panel/assets/css/vendor/bootstrap.min.css') }}">

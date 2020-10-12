@@ -29,7 +29,7 @@
     <!-- Favicon and touch icons  -->
     <link href="{{ asset('front/icon/apple-touch-icon-48-precomposed.png') }}" rel="apple-touch-icon" sizes="48x48">
     <link href="{{ asset('front/icon/apple-touch-icon-32-precomposed.png') }}" rel="apple-touch-icon-precomposed">
-    <link href="icon/favicon.png" rel="shortcut icon">
+    <link href="{{ asset('/images/logo/logo_bubblepop-1.png') }}" rel="shortcut icon">
 
     <!--[if lt IE 9]>
         <script src="javascript/html5shiv.js"></script>

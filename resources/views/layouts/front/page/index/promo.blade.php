@@ -2,9 +2,6 @@
     <div class="container">
         <div class="row">
             <div class="title-section">
-                <div class="top-section">
-                    <p>Special</p>
-                </div>
                 <h1 class="title">Promo</h1>
             </div>
             <div class="owl-carousel owl-theme" style="margin-top: 24px;">

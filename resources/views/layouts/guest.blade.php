@@ -8,6 +8,8 @@
 
         <title>Auth - {{ config('app.name', 'Laravel') }}</title>
 
+        <link rel="shortcut icon" type="image/x-icon" href="{{ asset('/images/logo/logo_bubblepop-1.png') }}">
+
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="{{ asset('/panel/assets/css/vendor/bootstrap.min.css') }}">
 
