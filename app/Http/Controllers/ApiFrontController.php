@@ -8,8 +8,50 @@ use App\Models\Promo;
 use App\Models\Topping;
 use Illuminate\Http\Request;
 
-class ApiFrontController extends Controller
-{
+class ApiFrontController extends Controller {
+
+    public function search_menu(Request $request) {
+
+        $query = $request->get('q');
+
+        $search = Menu::where('name', 'like', '%'.$query.'%')->get();
+        $search_obj = [];
+        foreach ($search as $data) {
+            array_push($search_obj, $data);
+        }
+        return response()->json([
+            'status' => true,
+            'total' => $search->count(),
+            'query' => $search
+        ], 200);
+    }
+
+    public function search_topping(Request $request) {
+
+        $query = $request->get('q');
+
+        $search = Topping::where('name', 'like', '%'.$query.'%')->get();
+        $search_obj = [];
+        foreach ($search as $data) {
+            array_push($search_obj, $data);
+        }
+        return response()->json([
+            'status' => true,
+            'total' => $search->count(),
+            'query' => $search
+        ], 200);
+    }
+
+    public function header() {
+
+        $menu = Menu::inRandomOrder()->limit(1)->get();
+
+        return response()->json([
+            'status' => true,
+            'total' => $menu->count(),
+            'menu' => $menu
+        ]);
+    }
 
     public function category() {
         $categories = Category::all()->sortByDesc('created_at');
@@ -24,33 +66,29 @@ class ApiFrontController extends Controller
         ], 200);
     }
 
-    public function category_menu($id) {
-        $categories = Category::where('id', $id)->where('name', '!=', 'topping')->first();
-        $category_menu = $categories->menu;
-        $category_menu_obj = [];
-        foreach ($category_menu as $data) {
-            array_push($category_menu_obj, $data);
+    public function category_menu() {
+        $category = Category::all()->where('name', '!=', 'topping');
+        $category_obj = [];
+        foreach ($category as $data) {
+            array_push($category_obj, $data);
         }
         return response()->json([
             'status' => true,
-            'category' => $categories->name,
-            'total' => $category_menu->count(),
-            'menu' => $category_menu_obj,
+            'total' => $category->count(),
+            'category' => $category_obj
         ], 200);
     }
 
-    public function category_topping($id) {
-        $categories = Category::where('id', $id)->where('name', 'topping')->first();
-        $category_menu = $categories->topping;
-        $category_menu_obj = [];
-        foreach ($category_menu as $data) {
-            array_push($category_menu_obj, $data);
+    public function category_topping() {
+        $category = Category::all()->where('name', 'topping');
+        $category_obj = [];
+        foreach ($category as $data) {
+            array_push($category_obj, $data);
         }
         return response()->json([
             'status' => true,
-            'category' => $categories->name,
-            'total' => $category_menu->count(),
-            'topping' => $category_menu_obj,
+            'total' => $category->count(),
+            'category' => $category_obj
         ], 200);
     }
 
