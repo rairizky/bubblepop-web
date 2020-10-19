@@ -4,7 +4,7 @@
 
 @section('content')
 {{-- hero --}}
-<div class="page-title parallax parallax1 flat_strech">
+<div class="page-title parallax parallax1 flat_strech" style="background: url({{ asset('images/bg/cafe-land.jpg') }})">
     <div class="container">
         <div class="row">
             <div class="col-md-12">                    
@@ -53,7 +53,7 @@
                     <div class="box-wrap">
                         <div class="box-image">
                             <a href="{{ route('bubblepop.detailmenu', $menu->id) }}">
-                                <img src="{{ asset('front/images/imagebox/3.jpg') }}" alt="images">
+                                <img src="{{ asset('uploads/menu/'.$menu->id.'/'.$menu->image) }}" alt="images">
                             </a>
                         </div>
                         <div class="box-content">
@@ -61,10 +61,7 @@
                             <ul>
                                 <li style="margin-left: 15px;">
                                     <div class="row">
-                                        Rp. {{ number_format($menu->price_m) }} - M
-                                    </div>
-                                    <div class="row">
-                                        Rp. {{ number_format($menu->price_l) }} - L
+                                        Rp. {{ number_format($menu->price_m) }}~{{ number_format($menu->price_l) }}
                                     </div>
                                 </li>
                                 <li>

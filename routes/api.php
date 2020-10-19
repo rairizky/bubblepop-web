@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('v1/api')->group(function() {
+Route::prefix('v1/')->group(function() {
     // auth
     Route::prefix('/auth')->group(function() {
         Route::post('/login', [ApiAuthController::class, 'login'])->name('api.auth.login');

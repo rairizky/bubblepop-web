@@ -19,17 +19,14 @@
                     <div class="imagebox effect1">
                         <div class="box-wrap">
                             <div class="box-image">
-                                <a href="{{ route('bubblepop.detailmenu', $item->id) }}"><img src="{{ asset('front/images/imagebox/2.jpg') }}" alt="images"></a>
+                                <a href="{{ route('bubblepop.detailmenu', $item->id) }}"><img src="{{ asset('uploads/menu/'.$item->id.'/'.$item->image) }}" alt="images"></a>
                             </div>
                             <div class="box-content">
                                 <h5>{{ $item->name }}</h5>
                                 <ul>
                                     <li style="margin-left: 15px;">
                                         <div class="row">
-                                            Rp. {{ number_format($item->price_m) }} - M
-                                        </div>
-                                        <div class="row">
-                                            Rp. {{ number_format($item->price_l) }} - L
+                                            Rp. {{ number_format($item->price_m) }}~{{ number_format($item->price_l) }}
                                         </div>
                                     </li>
                                 </ul>

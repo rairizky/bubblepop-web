@@ -4,7 +4,7 @@
 
 @section('content')
 {{-- hero --}}
-<div class="page-title parallax parallax1 flat_strech">
+<div class="page-title parallax parallax1 flat_strech" style="background: url({{ asset('images/bg/cafe-land.jpg') }})">
     <div class="container">
         <div class="row">
             <div class="col-md-12">                    
@@ -29,7 +29,7 @@
             <div class="flat-information col-sm-4">
                 <span class="fa fa-map-marker" aria-hidden="true"></span>
                 <h5 class="information-title">ADDRESS</h5>
-                <p class="address">Depok, Indonesia.</p>
+                <p class="address">Jl. Kali Licin No.19, Rangkapan Jaya, Kec. Pancoran Mas, Kota Depok, Jawa Barat 16435</p>
             </div>
             <div class="flat-information email col-sm-4">
                 <span class="fa fa-envelope" aria-hidden="true"></span>

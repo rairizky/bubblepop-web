@@ -4,7 +4,7 @@
 
 @section('content')
 {{-- hero --}}
-<div class="page-title parallax parallax1 flat_strech">
+<div class="page-title parallax parallax1 flat_strech" style="background: url({{ asset('images/bg/cafe-land.jpg') }})">
     <div class="container">
         <div class="row">
             <div class="col-md-12">                    
@@ -35,7 +35,7 @@
                             <div class="flex-viewport" style="overflow: hidden; position: relative;">
                                 <ul class="slides" style="width: 800%; transition-duration: 0s; transform: translate3d(0px, 0px, 0px);">
                                     <li class="flex-active-slide" style="width: 558px; margin-right: 0px; float: left; display: block;">
-                                        <img alt="product-single" src="{{ asset('front/images/shop/1.jpg') }}" class="attachment-themesflat-gallery-product size-themesflat-gallery-product" draggable="false" width="450" height="450">
+                                        <img alt="product-single" src="{{ asset('uploads/menu/'.$get_menu->id.'/'.$get_menu->image) }}" class="attachment-themesflat-gallery-product size-themesflat-gallery-product" draggable="false" width="450" height="450">
                                     </li>
                                 </ul>
                             </div>
@@ -71,7 +71,7 @@
 
                         <div class="description">
                             <p>
-                                Terlalu manis/kurang manis? jangan lupa tambahkan extra/less sugar pada menu anda, dan rasakan sensasi nya
+                                {{ $get_menu->description }}
                             </p>
                         </div>
 
