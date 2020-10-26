@@ -44,7 +44,13 @@ Route::prefix('v1/')->group(function() {
     // menu
     Route::prefix('/menu')->group(function() {
         Route::get('/', [ApiFrontController::class, 'menu'])->name('api.front.menu');
-        Route::get('/topping', [ApiFrontController::class, 'topping'])->name('api.front.topping');
+        Route::get('/{id}', [ApiFrontController::class, 'detail_menu'])->name('api.front.detail.menu');
+    });
+
+    // topping
+    Route::prefix('/topping')->group(function() {
+        Route::get('/', [ApiFrontController::class, 'topping'])->name('api.front.topping');
+        Route::get('/{id}', [ApiFrontController::class, 'detail_topping'])->name('api.front.topping.detail');
     });
 
     // category

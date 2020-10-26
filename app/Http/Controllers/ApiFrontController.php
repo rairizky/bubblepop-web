@@ -106,6 +106,15 @@ class ApiFrontController extends Controller {
         ], 200);
     }
 
+    public function detail_menu($id) {
+
+        $find_menus = Menu::find($id);
+        return response()->json([
+            'status' => true,
+            'menu' => $find_menus
+        ], 200);
+    }
+
     public function topping() {
         $topping = Topping::all()->sortByDesc('created_at');
         $topping_obj = [];
@@ -116,6 +125,15 @@ class ApiFrontController extends Controller {
             'status' => true,
             'total' => $topping->count(),
             'topping' => $topping_obj,
+        ], 200);
+    }
+
+    public function detail_topping($id) {
+
+        $find_toppings = Topping::find($id);
+        return response()->json([
+            'status' => true,
+            'topping' => $find_toppings
         ], 200);
     }
 
