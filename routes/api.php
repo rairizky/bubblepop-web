@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ApiAuthController;
 use App\Http\Controllers\ApiFrontController;
+use App\Http\Controllers\ApiTransactionController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -60,5 +61,12 @@ Route::prefix('v1/')->group(function() {
         Route::get('/topping', [ApiFrontController::class, 'category_topping'])->name('api.front.category.topping');
     });
     
+    // transaction
+    Route::prefix('/transaction')->group(function() {
+        // create cart and add menu
+        Route::get('/{iduser}/finish', [ApiTransactionController::class, 'tr_finish'])->name('api.front.transaction.finish');
+        Route::get('/{iduser}/pending', [ApiTransactionController::class, 'tr_pending'])->name('api.front.transaction.pending');
+        Route::post('/{iduser}/pending/add', [ApiTransactionController::class, 'addMenuToCart'])->name('api.front.transaction.add');
+    });
 
 });
