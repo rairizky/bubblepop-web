@@ -20,7 +20,7 @@ class CreateOrdersTable extends Migration
             $table->integer('cashier')->nullable();
             $table->integer('total')->nullable();
             $table->integer('paid')->nullable();
-            $table->enum('status', ['finish', 'pending']);
+            $table->enum('status', ['finish', 'pending', 'cart']);
             $table->timestamps();
         });
     }

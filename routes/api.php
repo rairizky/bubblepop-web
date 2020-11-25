@@ -66,7 +66,11 @@ Route::prefix('v1/')->group(function() {
         // create cart and add menu
         Route::get('/{iduser}/finish', [ApiTransactionController::class, 'tr_finish'])->name('api.front.transaction.finish');
         Route::get('/{iduser}/pending', [ApiTransactionController::class, 'tr_pending'])->name('api.front.transaction.pending');
-        Route::post('/{iduser}/pending/add', [ApiTransactionController::class, 'addMenuToCart'])->name('api.front.transaction.add');
+        Route::get('/{iduser}/cart', [ApiTransactionController::class, 'tr_cart'])->name('api.front.transaction.cart');
+        Route::post('/{iduser}/cart/add', [ApiTransactionController::class, 'addMenuToCart'])->name('api.front.transaction.add');
+
+        // checkout cart
+        Route::post('/{iduser}/cart/checkout', [ApiTransactionController::class, 'checkoutCart'])->name('api.front.transaction.checkout');
     });
 
 });

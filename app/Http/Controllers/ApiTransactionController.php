@@ -27,11 +27,24 @@ class ApiTransactionController extends Controller
 
     public function tr_pending($iduser) {
         $get_user = User::find($iduser);
-        $transaction_pending = Order::where('user_id', $get_user->id)->where('status', 'pending')->first();
+        $transaction_pending = Order::all()->where('user_id', $get_user->id)->where('status', 'pending');
+        $tr_pending_obj = [];
+        foreach ($transaction_pending as $data) {
+            array_push($tr_pending_obj, $data);
+        }
 
         return response()->json([
             'status' => true,
-            'transaction' => $transaction_pending
+            'total' => $transaction_pending->count(),
+            'transaction' => $tr_pending_obj
+        ], 200);
+    }
+
+    public function tr_cart($iduser) {
+
+        return response()->json([
+            'status' => true,
+            'transaction' => "List menu na yeuh"
         ], 200);
     }
     
@@ -58,7 +71,7 @@ class ApiTransactionController extends Controller
         }
 
         // check user has cart
-        $current_tr = Order::where('user_id', $get_user->id)->where('status', 'pending')->first();
+        $current_tr = Order::where('user_id', $get_user->id)->where('status', 'cart')->first();
         if ($current_tr) {
             // branching price
             $get_price = '';
@@ -123,7 +136,7 @@ class ApiTransactionController extends Controller
             $post = Order::create([
                 'name' => $get_user->name,
                 'user_id' => $get_user->id,
-                'status' => 'pending',
+                'status' => 'cart',
             ]);
     
             if ($post) {
@@ -187,7 +200,24 @@ class ApiTransactionController extends Controller
                 }
             }
         }
+    }
 
+    public function checkoutCart(Request $request, $iduser) {
+        $get_current_menu = Order::where('user_id', $iduser)->where('status', 'cart');
+        $up = $get_current_menu->update([
+            'status' => 'pending'
+        ]);
         
+        if ($up) {
+            return response()->json([
+                'status' => true,
+                'message' => 'Checkout berhasil!',
+            ], 200);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Gagal checkout!',
+            ], 200);
+        }
     }
 }
