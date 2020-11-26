@@ -41,6 +41,25 @@ class ApiTransactionController extends Controller
     }
 
     public function tr_cart($iduser) {
+        $get_cart_user = Order::where('user_id', $iduser)->where('status', 'cart')->first();
+        if ($get_cart_user == null) {
+            return response()->json([
+                'status' => true,
+                'total' => 0,
+                'transaction' => []
+            ], 200);
+        } else {
+            $get_order_detail_user = $get_cart_user->list_order;
+            $tr_detail_obj = [];
+            foreach ($get_order_detail_user as $data) {
+                array_push($tr_detail_obj, $data);
+            }
+            return response()->json([
+                'status' => true,
+                'total' => $get_order_detail_user->count(),
+                'transaction' => $tr_detail_obj
+            ], 200);
+        }
 
         return response()->json([
             'status' => true,
