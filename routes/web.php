@@ -110,6 +110,7 @@ Route::group(['middleware' => 'auth'], function() {
                 Route::prefix('onsite/')->group(function() {
                     Route::get('', [PanelTransactionOnsite::class, 'addInvoice'])->name('panel.transaction.addinvoice.onsite');
                     Route::post('', [PanelTransactionOnsite::class, 'storeInvoice'])->name('panel.transaction.storeinvoice.onsite');
+                    Route::post('/scan', [PanelTransactionOnsite::class, 'storeScanInvoice'])->name('panel.transaction.storescaninvoice.onsite');
                     Route::get('/{id}', [PanelTransactionOnsite::class, 'cartMenu'])->name('panel.transaction.cartmenu.onsite');
                     Route::get('/{id}/q', [PanelTransactionOnsite::class, 'searchMenu'])->name('panel.transaction.searchmenu.onsite');
                     Route::post('/{id}/addmenu', [PanelTransactionOnsite::class, 'storeCart'])->name('panel.transaction.storecart.onsite');
@@ -128,7 +129,7 @@ Route::group(['middleware' => 'auth'], function() {
 
                 // Scan
                 Route::prefix('scan/')->group(function() {
-                    // 
+                    // scan
                 });
             });
         });

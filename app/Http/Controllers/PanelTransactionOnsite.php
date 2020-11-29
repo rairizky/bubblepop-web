@@ -7,6 +7,7 @@ use App\Models\Detail;
 use App\Models\Extra;
 use App\Models\Menu;
 use App\Models\Order;
+use App\Models\Poin;
 use App\Models\Topping;
 use Illuminate\Http\Request;
 
@@ -41,6 +42,30 @@ class PanelTransactionOnsite extends Controller
             return back();
         }
 
+    }
+
+    public function storeScanInvoice(Request $request) {
+        $request->validate([
+            'transaction_code' => 'required'
+        ]);
+
+        $get_no_transaksi = Order::find($request->get('transaction_code'));
+        if ($get_no_transaksi) {
+            // return dd($request->get('transaction_code'));
+            $check_user_status = Order::where('id', (int)$request->get('transaction_code'))->where('status', 'pending');
+            $post = $check_user_status->update([
+                'cashier' => auth()->user()->id,
+                'status' => 'pending',
+            ]);
+    
+            if ($post) {
+                return redirect()->route('panel.transaction.cartmenu.onsite', $request->get('transaction_code'));
+            } else {
+                return back()->with('error', "transaction code not found");
+            }
+        } else {
+            return back()->with('error', "transaction code not found");
+        }
     }
 
     public function cartMenu($id) {
@@ -307,9 +332,35 @@ class PanelTransactionOnsite extends Controller
                 return back();
             }
         } else {
+            // tr mobile
+                
+            $up = $get_order->update([
+                'total' => $request->get('total'),
+                'paid' => $request->get('paid'),
+                'status' => 'finish'
+            ]);
 
-            // for tr scan mobile
+            if ($up) {
+                $count_point = (int)$request->get('total');
+                $get_point = ($count_point*5)/100;
 
+                // point here
+                $get_user_id = $get_order->user_id;
+                $check_order_has_point = Poin::where('user_id', $get_user_id)->first();
+                if ($check_order_has_point == null) {
+                    Poin::create([
+                        'user_id' => $get_user_id,
+                        'total' => $get_point
+                    ]);
+                } else {
+                    $check_order_has_point->update([
+                        'total' => $check_order_has_point->total+$get_point
+                    ]);
+                }
+                return redirect()->route('panel.transaction.addinvoice.onsite')->with('success', 'Order finish, anda mendapatkan '.$get_point.' point!');
+            } else {
+                return back();
+            }
         }
     }
 
@@ -328,20 +379,31 @@ class PanelTransactionOnsite extends Controller
     public function cancelOrder($id) {
 
         $get_order = Order::find($id);
-        $get_detail_order = $get_order->list_order();
-        $get_extra_menu = $get_order->list_extra();
+        if ($get_order) {
+            if ($get_order->user_id == null) {
+                $get_detail_order = $get_order->list_order();
+                $get_extra_menu = $get_order->list_extra();
 
-        if ($get_detail_order->exists()) {
-            $get_detail_order->delete();
+                if ($get_detail_order->exists()) {
+                    $get_detail_order->delete();
+                }
+                
+                if ($get_extra_menu->exists()) {
+                    $get_extra_menu->delete();
+                }
+
+                $get_order->delete();
+
+                return redirect()->route('panel.transaction.addinvoice.onsite')->with('success', 'cancel order success');
+            } else {
+                $up = $get_order->update([
+                    'cashier' => null
+                ]);
+                if ($up) {
+                    return redirect()->route('panel.transaction.addinvoice.onsite')->with('success', 'cancel order success');
+                }
+            }
         }
-        
-        if ($get_extra_menu->exists()) {
-            $get_extra_menu->delete();
-        }
-
-        $get_order->delete();
-
-        return redirect()->route('panel.transaction.addinvoice.onsite')->with('success', 'cancel order success');
     }
 
 }

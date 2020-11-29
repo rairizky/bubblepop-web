@@ -15,6 +15,15 @@
 </div>
 @endif
 
+@if ($message = Session::get('error'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{ $message }}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true"></span>
+    </button>
+</div>
+@endif
+
 <!-- content -->
 <div class="row mbn-30">
     <!-- All Product Start -->
@@ -61,17 +70,21 @@
                                         <span aria-hidden="true">&times;</span>
                                     </button>
                                     </div>
-                                    <div class="modal-body">
-                                        <div class="d-flex justify-content-center">
-                                            <img src="{{ asset('images/acc/qr_text.png') }}">
+                                    <form action="{{ route('panel.transaction.storescaninvoice.onsite') }}" method="POST">
+                                        @csrf
+                                        <div class="modal-body">
+                                            <div class="d-flex justify-content-center">
+                                                <img src="{{ asset('images/acc/qr_text.png') }}">
+                                            </div>
+                                            
+                                            <p class="d-flex justify-content-center">Scan or input manually transaction code below</p>
+                                            <input type="text" name="transaction_code" class="form-control" placeholder="Transaction code" autocomplete="off">
                                         </div>
-                                        <p class="d-flex justify-content-center">Scan or input manually transaction code below</p>
-                                        <input type="text" name="transaction_code" class="form-control" placeholder="Transaction code" autocomplete="off">
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                                        <button type="button" class="btn btn-primary">Scan</button>
-                                    </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary">Scan</button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

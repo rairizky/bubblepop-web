@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Detail;
 use App\Models\Menu;
 use App\Models\Order;
+use App\Models\Poin;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -50,12 +51,20 @@ class ApiTransactionController extends Controller
             ], 200);
         } else {
             $get_order_detail_user = $get_cart_user->list_order;
+            $total = 0;
+            foreach ($get_order_detail_user as $data) {
+                $mount = $data->mount;
+                $price = $data->price;
+                $count = $mount*$price;
+                $total += $count;
+            }
             $tr_detail_obj = [];
             foreach ($get_order_detail_user as $data) {
                 array_push($tr_detail_obj, $data);
             }
             return response()->json([
                 'status' => true,
+                'tprice' => $total,
                 'total' => $get_order_detail_user->count(),
                 'transaction' => $tr_detail_obj
             ], 200);
@@ -224,6 +233,7 @@ class ApiTransactionController extends Controller
     public function checkoutCart(Request $request, $iduser) {
         $get_current_menu = Order::where('user_id', $iduser)->where('status', 'cart');
         $up = $get_current_menu->update([
+            'total' => $request->get('total'),
             'status' => 'pending'
         ]);
         
@@ -238,5 +248,126 @@ class ApiTransactionController extends Controller
                 'message' => 'Gagal checkout!',
             ], 200);
         }
+    }
+
+    public function detailPending($iduser, $idtr) {
+        $get_cart_user = Order::where('id', $idtr)->where('user_id', $iduser)->where('status', 'pending')->first();
+        if ($get_cart_user) {
+            if ($get_cart_user == null) {
+                return response()->json([
+                    'status' => true,
+                    'id' => $get_cart_user->id,
+                    'name' => $get_cart_user->name,
+                    'user_id' => $get_cart_user->user_id,
+                    'cashier' => $get_cart_user->cashier,
+                    'total' => $get_cart_user->total,
+                    'paid' => $get_cart_user->paid,
+                    'status' => $get_cart_user->status,
+                    'created_at' => $get_cart_user->created_at,
+                    'updated_at' => $get_cart_user->update_at,
+                    'menu' => []
+                ], 200);
+            } else {
+                $get_order_detail_user = $get_cart_user->list_order;
+                $total = 0;
+                foreach ($get_order_detail_user as $data) {
+                    $mount = $data->mount;
+                    $price = $data->price;
+                    $count = $mount*$price;
+                    $total += $count;
+                }
+                $tr_detail_obj = [];
+                foreach ($get_order_detail_user as $data) {
+                    array_push($tr_detail_obj, $data);
+                }
+                return response()->json([
+                    'status' => true,
+                    'id' => $get_cart_user->id,
+                    'name' => $get_cart_user->name,
+                    'user_id' => $get_cart_user->user_id,
+                    'cashier' => $get_cart_user->cashier,
+                    'total' => $get_cart_user->total,
+                    'paid' => $get_cart_user->paid,
+                    'status' => $get_cart_user->status,
+                    'created_at' => $get_cart_user->created_at,
+                    'updated_at' => $get_cart_user->update_at,
+                    'transaction' => $tr_detail_obj
+                ], 200);
+            }
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Transaksi Pending kosong!',
+            ], 200);
+        }
+    }
+
+    public function detailFinish($iduser, $idtr) {
+        $get_cart_user = Order::where('id', $idtr)->where('user_id', $iduser)->where('status', 'finish')->first();
+        if ($get_cart_user) {
+            if ($get_cart_user == null) {
+                return response()->json([
+                    'status' => true,
+                    'id' => $get_cart_user->id,
+                    'name' => $get_cart_user->name,
+                    'user_id' => $get_cart_user->user_id,
+                    'cashier' => $get_cart_user->cashier,
+                    'total' => $get_cart_user->total,
+                    'paid' => $get_cart_user->paid,
+                    'status' => $get_cart_user->status,
+                    'created_at' => $get_cart_user->created_at,
+                    'updated_at' => $get_cart_user->update_at,
+                    'menu' => []
+                ], 200);
+            } else {
+                $get_order_detail_user = $get_cart_user->list_order;
+                $total = 0;
+                foreach ($get_order_detail_user as $data) {
+                    $mount = $data->mount;
+                    $price = $data->price;
+                    $count = $mount*$price;
+                    $total += $count;
+                }
+                $tr_detail_obj = [];
+                foreach ($get_order_detail_user as $data) {
+                    array_push($tr_detail_obj, $data);
+                }
+                return response()->json([
+                    'status' => true,
+                    'id' => $get_cart_user->id,
+                    'name' => $get_cart_user->name,
+                    'user_id' => $get_cart_user->user_id,
+                    'cashier' => $get_cart_user->cashier,
+                    'total' => $get_cart_user->total,
+                    'paid' => $get_cart_user->paid,
+                    'status' => $get_cart_user->status,
+                    'created_at' => $get_cart_user->created_at,
+                    'updated_at' => $get_cart_user->update_at,
+                    'transaction' => $tr_detail_obj
+                ], 200);
+            }
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Transaksi Finish kosong!',
+            ], 200);
+        }
+    }
+
+    public function getCashier($iduser, $idtr) {
+        $find = Order::where('id', $idtr)->where('user_id', $iduser)->where('status', 'finish')->first();
+        $get_name_cashier = User::find($find->cashier);
+        return response()->json([
+            'status' => true,
+            'message' => $get_name_cashier->name,
+        ], 200);
+    }
+
+    public function poinUser($iduser) {
+        $find = Poin::where('user_id', $iduser)->first();
+        return response()->json([
+            'status' => true,
+            'message' => $find->total,
+        ], 200);
     }
 }

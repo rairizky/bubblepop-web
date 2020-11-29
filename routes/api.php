@@ -71,6 +71,15 @@ Route::prefix('v1/')->group(function() {
 
         // checkout cart
         Route::post('/{iduser}/cart/checkout', [ApiTransactionController::class, 'checkoutCart'])->name('api.front.transaction.checkout');
+
+        // pending finish
+        Route::get('/{iduser}/pending/{idtr}', [ApiTransactionController::class, 'detailPending']);
+        Route::get('/{iduser}/finish/{idtr}', [ApiTransactionController::class, 'detailFinish']);
+        Route::get('/{iduser}/tr/{idtr}/menu', [ApiTransactionController::class, 'detailTrMenu']);
+
+        // get cashier
+        Route::get('/{iduser}/tr/{idtr}/cashier', [ApiTransactionController::class, 'getCashier']);
+        Route::get('/{iduser}/poin', [ApiTransactionController::class, 'poinUser']);
     });
 
 });
